@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ExerciseEditDialog extends StatefulWidget {
   final String title;
   final String lable;
+  final String value;
 
-  const ExerciseEditDialog({Key key, this.title, this.lable}) : super(key: key);
+  const ExerciseEditDialog({Key key, this.title, this.lable, this.value = ""}) : super(key: key);
   @override
   ExerciseEditDialogState createState() {
     return new ExerciseEditDialogState();
@@ -20,7 +22,8 @@ class ExerciseEditDialogState extends State<ExerciseEditDialog> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[Text(widget.title), CloseButton()],
       ),
-      contentPadding: EdgeInsets.all(5),
+      titlePadding: EdgeInsets.all(10),
+      contentPadding: EdgeInsets.all(10),
       children: <Widget>[
         Form(
           key: _formKey,
@@ -28,6 +31,9 @@ class ExerciseEditDialogState extends State<ExerciseEditDialog> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               TextFormField(
+                initialValue: widget.value,
+                maxLines: 3,
+                inputFormatters: [LengthLimitingTextInputFormatter(250)],
                 decoration: InputDecoration(labelText: widget.lable),
                 validator: (String value) {
                   if (value.trim().isEmpty) {

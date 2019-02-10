@@ -16,12 +16,24 @@ class ExerciseData {
     return DbHelpers.insert(DbSql.tableExercises, this.toMap());
   }
 
+  Future<int> saveCopy(String exercisePlanId) {
+    id = SystemHelpers.generateUuid();
+    this.exercisePlanId = exercisePlanId;
+    return DbHelpers.insert(DbSql.tableExercises, this.toMap());
+  }
+
   Future<int> delete() {
     return DbHelpers.deleteById(DbSql.tableExercises, id);
   }
 
   Future<int> updateIndex(int index) {
+    this.index = index;
     return DbHelpers.updateExerciseIndex(id, index);
+  }
+
+  Future<int> updateText(String text) {
+    this.text = text;
+    return DbHelpers.updateExerciseText(id, text);
   }
 
   Map<String, dynamic> toMap() {

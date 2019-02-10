@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:path/path.dart';
+import 'package:simple_exercise_calendar/helpers/date_time_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/db_sql_create.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:synchronized/synchronized.dart';
@@ -33,6 +34,7 @@ class DbHelpers {
               print("ONCREATE CREATION TABLES");
               await db.execute("${DbSql.createExercisePlans}");
               await db.execute("${DbSql.createExercises}");
+              await db.execute("${DbSql.createEvents}");
             } catch (error) {
               print("DB ONCREATE ERROR: $error");
             }
@@ -41,14 +43,21 @@ class DbHelpers {
               print("ONUPGRADE CREATION TABLES");
               await db.execute("${DbSql.createExercisePlans}");
               await db.execute("${DbSql.createExercises}");
+              await db.execute("${DbSql.createEvents}");
             } catch (error) {
               print("DB ONUPGRADE ERROR: $error");
             }
           }, onOpen: (Database db) async {
             try {
               print("ONOPEN");
+              // await db.execute("${DbSql.createExercisePlans}");
+              // await db.execute("${DbSql.createExercises}");
+              // await db.execute("${DbSql.createEvents}");
+
+
               // await db.execute("${DbSql.dropExercisePlans}");
               // await db.execute("${DbSql.dropExercises}");
+              // await db.execute("${DbSql.dropEvents}");
             } catch (error) {
               print("DB ONOPEN ERROR: $error");
             }
@@ -114,5 +123,20 @@ class DbHelpers {
   static Future<int> updateExerciseIndex(String exerciseId, int index) async {
     Database dbCon = await db;
     return dbCon.rawUpdate("UPDATE ${DbSql.tableExercises} SET 'index' = ? WHERE id = ?", [index, exerciseId]);
+  }
+
+  static Future<int> updateExerciseText(String id, String text) async {
+    Database dbCon = await db;
+    return dbCon.rawUpdate("UPDATE ${DbSql.tableExercises} SET 'text' = ? WHERE id = ?", [text, id]);
+  }
+
+  static Future<int> updatePlanTitle(String id, String title) async {
+    Database dbCon = await db;
+    return dbCon.rawUpdate("UPDATE ${DbSql.tableExercisePlans} SET 'title' = ? WHERE id = ?", [title, id]);
+  }
+
+  static Future<List<Map<String, dynamic>>> getEventsForMonth(int startDateInMilliseconds, int endDateInMilliseconds) async {
+    Database dbCon = await db;
+    return dbCon.rawQuery("SELECT * FROM ${DbSql.tableEvents} WHERE date BETWEEN ? and ?", [startDateInMilliseconds, endDateInMilliseconds]);
   }
 }
