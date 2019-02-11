@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:path/path.dart';
-import 'package:simple_exercise_calendar/helpers/date_time_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/db_sql_create.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:synchronized/synchronized.dart';
@@ -98,7 +97,7 @@ class DbHelpers {
     return dbCon.delete(table, where: "${DbSql.colId} = ?", whereArgs: [id]);
   }
 
-  static Future<int> deleteByExerciseplanId(String exercisePlanId) async {
+  static Future<int> deleteExercisesByExerciseplanId(String exercisePlanId) async {
     Database dbCon = await db;
     return dbCon.delete(DbSql.tableExercises,
         where: "${DbSql.colExercisePlanId} = ?", whereArgs: [exercisePlanId]);
@@ -128,6 +127,11 @@ class DbHelpers {
   static Future<int> updateExerciseText(String id, String text) async {
     Database dbCon = await db;
     return dbCon.rawUpdate("UPDATE ${DbSql.tableExercises} SET 'text' = ? WHERE id = ?", [text, id]);
+  }
+
+  static Future<int> updateExerciseClosed(String id, bool closed) async {
+    Database dbCon = await db;
+    return dbCon.rawUpdate("UPDATE ${DbSql.tableExercises} SET 'closed' = ? WHERE id = ?", [closed, id]);
   }
 
   static Future<int> updatePlanTitle(String id, String title) async {

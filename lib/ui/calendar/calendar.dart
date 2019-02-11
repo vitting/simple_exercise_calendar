@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/event_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/ui/calendar/calendar_detail.dart';
@@ -14,7 +15,7 @@ class CalendarMain extends StatefulWidget {
 }
 
 class CalendarMainState extends State<CalendarMain> {
-  EventList<String> _events = EventList<String>();
+  EventList<EventData> _events = EventList<EventData>();
   @override
   void initState() {
     super.initState();
@@ -24,11 +25,14 @@ class CalendarMainState extends State<CalendarMain> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: CalendarCarousel<String>(
+      child: CalendarCarousel<EventData>(
+        height: 500,
+        daysHaveCircularBorder: true,
+        dayButtonColor: Colors.blueGrey[50],
         onCalendarChanged: (DateTime date) {
-          print("ONCALENDARCHANGED: $date");
+          _getEvents(date);
         },
-        onDayPressed: (DateTime date, List<String> items) async {
+        onDayPressed: (DateTime date, List<EventData> items) async {
           if (items.length == 0) {
             ExercisePlanData exercisePlan = await Navigator.of(context).push(
                 MaterialPageRoute<ExercisePlanData>(
@@ -41,15 +45,18 @@ class CalendarMainState extends State<CalendarMain> {
 
             _getEvents(date);
           } else {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => CalendarDetail(date: date)));
+            bool removed =await Navigator.of(context).push(MaterialPageRoute<bool>(
+                builder: (BuildContext context) => CalendarDetail(event: items[0])));
+            if (removed != null && removed) {
+              _getEvents(date);
+            }
           }
         },
         weekDayFormat: WeekdayFormat.standaloneNarrow,
         markedDateShowIcon: true,
         markedDateMoreShowTotal: false,
-        markedDateIconBuilder: (String item) {
-          return Icon(Icons.person, size: 30, color: Colors.blue[800].withAlpha(80));
+        markedDateIconBuilder: (EventData item) {
+          return Icon(FontAwesomeIcons.heartbeat, size: 30, color: Colors.blue[800].withAlpha(80));
         },
         markedDateIconMaxShown: 1,
         markedDatesMap: _events,
@@ -64,7 +71,7 @@ class CalendarMainState extends State<CalendarMain> {
     _events.clear();
     setState(() {
       list.forEach((EventData item) {
-        _events.add(item.date, item.exercisePlanId);
+        _events.add(item.date, item);
       });
     });
   }

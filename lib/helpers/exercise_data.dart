@@ -36,6 +36,11 @@ class ExerciseData {
     return DbHelpers.updateExerciseText(id, text);
   }
 
+  Future<int> updateClosed(bool closed) {
+    this.closed = closed;
+    return DbHelpers.updateExerciseClosed(id, closed);
+  }
+
   Map<String, dynamic> toMap() {
     return {
       "id": id,

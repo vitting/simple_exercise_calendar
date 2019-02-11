@@ -3,6 +3,7 @@ import 'package:simple_exercise_calendar/helpers/date_time_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/db_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/db_sql_create.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_data.dart';
+import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 
 class EventData {
@@ -20,11 +21,20 @@ class EventData {
     };
   }
 
+  Future<int> deleteExercisePlan() async {
+    await DbHelpers.deleteExercisesByExerciseplanId(exercisePlanId);
+    return DbHelpers.deleteById(DbSql.tableExercisePlans, exercisePlanId);
+  }
+
   Future<int> save() {
     id = id ?? SystemHelpers.generateUuid();
     date = DateTime(date.year, date.month, date.day);
 
     return DbHelpers.insert(DbSql.tableEvents, this.toMap());
+  }
+
+  Future<int> delete() {
+    return DbHelpers.deleteById(DbSql.tableEvents, id);
   }
 
   Future<List<ExerciseData>> getExercises() async {
@@ -36,6 +46,20 @@ class EventData {
     return list.map<ExerciseData>((Map<String, dynamic> item) {
       return ExerciseData.fromMap(item);
     }).toList();
+  }
+
+  Future<ExercisePlanData> getExercisePlan() async {
+    ExercisePlanData plan;
+    List<Map<String, dynamic>> list = await DbHelpers.query(
+        DbSql.tableExercisePlans,
+        where: "id = ?",
+        whereArgs: [exercisePlanId]);
+    
+    if (list.length != 0) {
+      plan = ExercisePlanData.fromMap(list[0]);
+    }
+    
+    return plan;
   }
 
   factory EventData.fromMap(Map<String, dynamic> item) {

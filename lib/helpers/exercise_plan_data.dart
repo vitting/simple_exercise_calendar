@@ -28,7 +28,7 @@ class ExercisePlanData {
   }
 
   Future<int> delete() async {
-    await DbHelpers.deleteByExerciseplanId(id);
+    await DbHelpers.deleteExercisesByExerciseplanId(id);
     return DbHelpers.deleteById(DbSql.tableExercisePlans, id);
   }
 
