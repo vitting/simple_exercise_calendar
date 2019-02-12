@@ -60,4 +60,14 @@ class ExerciseData {
       closed: item["closed"] == 1
     );
   }
+
+  factory ExerciseData.copy(ExerciseData item) {
+    return ExerciseData(
+      id: SystemHelpers.generateUuid(),
+      exercisePlanId: item.exercisePlanId,
+      text: item.text,
+      closed: false,
+      index: item.index
+    );
+  }
 }

@@ -40,7 +40,9 @@ class ExercisesDetailState extends State<ExercisesDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.blueGrey,
           onPressed: () async {
             _addExerciseToPlan(context);
           },
@@ -61,8 +63,10 @@ class ExercisesDetailState extends State<ExercisesDetail> {
                   onIconTap: (_) {},
                 ),
               )
-            : _list.length == 1 /// Fix to avoid bug in DragAndDropList when only 1 element is present and dragged
-                ? _createExerciseRow(_list[0]) 
+
+            /// Fix to avoid bug in DragAndDropList when only 1 element is present and dragged
+            : _list.length == 1
+                ? _createExerciseRow(_list[0])
                 : DragAndDropList<ExerciseData>(_list,
                     onDragFinish: _onDragFinish,
                     canBeDraggedTo: (int one, int two) => true,
@@ -72,7 +76,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
   }
 
   void _addExerciseToPlan(BuildContext context) async {
-    String text = await showEditDialog(context, "Opret øvelse", "Øvelse", "");
+    String text = await showEditDialog(context, "Ny øvelse", "Øvelse", "");
 
     if (text != null && text.isNotEmpty) {
       ExerciseData data = await widget.plan.addExercise(text, _list.length);
@@ -98,29 +102,72 @@ class ExercisesDetailState extends State<ExercisesDetail> {
           item.text,
           style: TextStyle(color: Colors.white),
         ),
-        onTap: () async {
-          String text = await showEditDialog(
-              context, "Redigere øvelse", "Øvelse", item.text);
-          if (text != null && text.isNotEmpty && (item.text != text)) {
-            await item.updateText(text);
-          }
+        onLongPress: () {
+          _editExerciseText(item);
         },
         trailing: IconButton(
             icon: Icon(
-              Icons.close,
+              Icons.more_vert,
               color: Colors.white,
             ),
-            onPressed: () async {
-              bool delete = await showDeleteDialog(context, "Delete Plan?");
-              if (delete != null && delete) {
-                setState(() {
-                  _list.remove(item);
-                });
-
-                await item.delete();
-              }
+            onPressed: () {
+              _showBottomMenu(item);
             }),
       ),
     );
+  }
+
+  void _showBottomMenu(ExerciseData item) async {
+    int result = await showModalBottomSheet(
+        context: context,
+        builder: (BuildContext sheetContext) => Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                    leading: Icon(Icons.content_copy),
+                    title: Text("Kopier"),
+                    onTap: () {
+                      Navigator.of(sheetContext).pop(0);
+                    }),
+                ListTile(
+                    leading: Icon(Icons.edit),
+                    title: Text("Redigere"),
+                    onTap: () {
+                      Navigator.of(sheetContext).pop(1);
+                    }),
+                ListTile(
+                    leading: Icon(Icons.delete),
+                    title: Text("Slet"),
+                    onTap: () {
+                      Navigator.of(sheetContext).pop(2);
+                    })
+              ],
+            ));
+
+    if (result != null) {
+      if (result == 0) {
+        ExerciseData copy = ExerciseData.copy(item);
+        await copy.save();
+        _getData();
+      } else if (result == 1) {
+        _editExerciseText(item);
+      } else if (result == 2) {
+        bool delete = await showDeleteDialog(context, "Slet denne plan?");
+        if (delete != null && delete) {
+          setState(() {
+            _list.remove(item);
+          });
+
+          await item.delete();
+        }
+      }
+    }
+  }
+
+  void _editExerciseText(ExerciseData item) async {
+    String text = await showEditDialog(context, "Øvelse", "Øvelse", item.text);
+    if (text != null && text.isNotEmpty && (item.text != text)) {
+      await item.updateText(text);
+    }
   }
 }

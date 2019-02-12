@@ -5,7 +5,7 @@ import 'package:simple_exercise_calendar/helpers/db_sql_create.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:synchronized/synchronized.dart';
 
-final String dbName = "simpleexercisecalendar1.db";
+final String dbName = "simplecalendarforexercise.db";
 final int dbVersion = 1;
 
 class DbHelpers {
@@ -52,6 +52,7 @@ class DbHelpers {
               // await db.execute("${DbSql.createExercisePlans}");
               // await db.execute("${DbSql.createExercises}");
               // await db.execute("${DbSql.createEvents}");
+
 
 
               // await db.execute("${DbSql.dropExercisePlans}");

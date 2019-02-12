@@ -8,7 +8,7 @@ class ExerciseDeleteDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return SimpleDialog(
       contentPadding: EdgeInsets.all(25),
-        title: Text("Delete"),
+        title: Text("Slet"),
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
@@ -18,13 +18,13 @@ class ExerciseDeleteDialog extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               SimpleDialogOption(
-            child: Text("Yes"),
+            child: Text("Ja"),
             onPressed: () {
               Navigator.of(context).pop(true);
             },
           ),
           SimpleDialogOption(
-            child: Text("No"),
+            child: Text("Nej"),
             onPressed: () {
               Navigator.of(context).pop(false);
             },

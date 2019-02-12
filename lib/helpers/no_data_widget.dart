@@ -49,15 +49,6 @@ class NoData extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                     color: Colors.white)),
-                            text2 == null
-                                ? Container()
-                                : Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 5),
-                                    child: Text(text2,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                            color: Colors.white))),
                             buttonIcon == null
                                 ? Container()
                                 : IconButton(
@@ -69,6 +60,15 @@ class NoData extends StatelessWidget {
                                     },
                                     icon: Icon(buttonIcon, color: Colors.white),
                                   ),
+                            text2 == null
+                                ? Container()
+                                : Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 5),
+                                    child: Text(text2,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: Colors.white))),
                           ],
                         ),
                       )),

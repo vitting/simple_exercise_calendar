@@ -66,6 +66,26 @@ class ExercisePlanData {
         type: type);
   }
 
+  Future<ExercisePlanData> saveCopyWithExercises(
+      [String title = "", String type = "template"]) async {
+    String newId = SystemHelpers.generateUuid();
+    List<ExerciseData> exercises = await this.getExercises();
+    ExercisePlanData newExercisePlan =
+        ExercisePlanData(
+          id: newId, 
+          title: title.isEmpty ? this.title : title, 
+          type: type);
+
+    int result = await newExercisePlan.save();
+    if (result != null && result != 0) {
+      exercises.forEach((ExerciseData item) async {
+        await item.saveCopy(newId);
+      });
+    }
+
+    return newExercisePlan;
+  }
+
   Future<ExerciseData> addExercise(String text, int index) async {
     ExerciseData exercise =
         ExerciseData(exercisePlanId: id, text: text, index: index);

@@ -10,11 +10,10 @@ class Home extends StatelessWidget {
           title: Text("Planlægger"),
         ),
         floatingActionButton: FloatingActionButton(
-          tooltip: "Planer",
+          tooltip: "Dine planer",
           child: Icon(Icons.view_list, size: 30),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-              fullscreenDialog: true,
               builder: (BuildContext context) => ExercisesMain()
             ));
           },

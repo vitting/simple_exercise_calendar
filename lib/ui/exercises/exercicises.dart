@@ -19,7 +19,9 @@ class ExercisesMainState extends State<ExercisesMain> {
         appBar: AppBar(
           title: Text("Planer"),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
+          tooltip: "Tilføj ny plan",
           child: Icon(Icons.add, size: 30),
           onPressed: () {
             addNewPlan(context);
@@ -55,37 +57,86 @@ class ExercisesMainState extends State<ExercisesMain> {
                 return Card(
                   color: Colors.blueGrey[100],
                   child: ListTile(
-                      title: Text(plan.title),
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) => ExercisesDetail(
-                                  plan: plan,
-                                  create: false,
-                                )));
-                      },
-                      onLongPress: () async {
-                        String title = await showEditDialog(
-                            context, "Edit Plan", "Plan name", plan.title);
-                        if (title.isNotEmpty) {
-                          setState(() {
-                            plan.updateTitle(title);
-                          });
-                        }
-                      },
-                      leading: IconButton(
-                          icon: Icon(Icons.close),
-                          onPressed: () async {
-                            bool delete =
-                                await showDeleteDialog(context, "Delete Plan?");
-                            if (delete != null && delete) {
-                              await plan.delete();
-                              setState(() {});
-                            }
-                          })),
+                    title: Text(plan.title),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => ExercisesDetail(
+                                plan: plan,
+                                create: false,
+                              )));
+                    },
+                    onLongPress: () {
+                      _editPlanTitle(plan);
+                    },
+                    trailing: IconButton(
+                        icon: Icon(
+                          Icons.more_vert,
+                        ),
+                        onPressed: () async {
+                          _showBottomMenu(plan);
+                        }),
+                  ),
                 );
               },
             );
           },
         ));
+  }
+
+  void _showBottomMenu(ExercisePlanData plan) async {
+    int result = await showModalBottomSheet(
+        context: context,
+        builder: (BuildContext sheetContext) => Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                    leading: Icon(Icons.content_copy),
+                    title: Text("Kopier"),
+                    onTap: () {
+                      Navigator.of(sheetContext).pop(0);
+                    }),
+                ListTile(
+                    leading: Icon(Icons.edit),
+                    title: Text("Redigere"),
+                    onTap: () {
+                      Navigator.of(sheetContext).pop(1);
+                    }),
+                ListTile(
+                    leading: Icon(Icons.delete),
+                    title: Text("Slet"),
+                    onTap: () {
+                      Navigator.of(sheetContext).pop(2);
+                    })
+              ],
+            ));
+
+    if (result != null) {
+      if (result == 0) {
+        String title = await showEditDialog(
+            context, "Kopier plan", "Plan name", plan.title);
+        if (title != null && title.isNotEmpty) {
+          await plan.saveCopyWithExercises(title);
+        }
+      } else if (result == 1) {
+        _editPlanTitle(plan);
+      } else if (result == 2) {
+        bool delete = await showDeleteDialog(context, "Delete Plan?");
+        if (delete != null && delete) {
+          await plan.delete();
+        }
+      }
+
+      setState(() {});
+    }
+  }
+
+  void _editPlanTitle(ExercisePlanData plan) async {
+    String title =
+        await showEditDialog(context, "Edit Plan", "Plan name", plan.title);
+    if (title != null && title.isNotEmpty) {
+      setState(() {
+        plan.updateTitle(title);
+      });
+    }
   }
 }
