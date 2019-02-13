@@ -5,13 +5,14 @@ import 'package:simple_exercise_calendar/ui/exercises/exercise_edit_dialog.dart'
 import 'package:simple_exercise_calendar/ui/exercises/exercises_detail.dart';
 
 Future<String> showEditDialog(
-    BuildContext context, String title, String lable, String value) async {
+    BuildContext context, String title, String lable, String value, [bool autoFocus = false]) async {
   return showDialog<String>(
       context: context,
       builder: (BuildContext dialogContext) => ExerciseEditDialog(
             title: title,
             lable: lable,
             value: value,
+            autoFocus: autoFocus,
           ));
 }
 
@@ -23,7 +24,7 @@ Future<bool> showDeleteDialog(BuildContext context, String bodyText) {
 }
 
 void addNewPlan(BuildContext context) async {
-  String title = await showEditDialog(context, "Create Plan", "Plan name", "");
+  String title = await showEditDialog(context, "Create Plan", "Plan name", "", true);
 
   if (title != null && title.isNotEmpty) {
     ExercisePlanData plan = ExercisePlanData(title: title);

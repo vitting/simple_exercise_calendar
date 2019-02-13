@@ -4,6 +4,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/event_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
+import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/ui/calendar/calendar_detail.dart';
 import 'package:simple_exercise_calendar/ui/calendar/calendar_exercise_plan_chooser.dart';
 
@@ -28,6 +29,12 @@ class CalendarMainState extends State<CalendarMain> {
       child: CalendarCarousel<EventData>(
         height: 500,
         daysHaveCircularBorder: true,
+        iconColor: ThemeConfig.textColor,
+        headerTextStyle: TextStyle(color: ThemeConfig.textColor),
+        headerTitleTouchable: true,
+        // minSelectedDate: ,
+        //  maxSelectedDate: ,
+        todayButtonColor: ThemeConfig.defaultBackgroundColor,
         dayButtonColor: Colors.blueGrey[50],
         onCalendarChanged: (DateTime date) {
           _getEvents(date);
@@ -45,18 +52,22 @@ class CalendarMainState extends State<CalendarMain> {
 
             _getEvents(date);
           } else {
-            bool removed =await Navigator.of(context).push(MaterialPageRoute<bool>(
-                builder: (BuildContext context) => CalendarDetail(event: items[0])));
+            bool removed = await Navigator.of(context).push(
+                MaterialPageRoute<bool>(
+                    builder: (BuildContext context) =>
+                        CalendarDetail(event: items[0])));
             if (removed != null && removed) {
               _getEvents(date);
             }
           }
         },
         weekDayFormat: WeekdayFormat.standaloneNarrow,
+        weekdayTextStyle: TextStyle(color: ThemeConfig.textColor),
         markedDateShowIcon: true,
         markedDateMoreShowTotal: false,
         markedDateIconBuilder: (EventData item) {
-          return Icon(FontAwesomeIcons.heartbeat, size: 30, color: Colors.blue[800].withAlpha(80));
+          return Icon(FontAwesomeIcons.heartbeat,
+              size: 30, color: Colors.blue[800].withAlpha(80));
         },
         markedDateIconMaxShown: 1,
         markedDatesMap: _events,

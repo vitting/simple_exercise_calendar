@@ -13,7 +13,7 @@ class RoundButton extends StatelessWidget {
     return RaisedButton(
       child: Container(
           child: Text(text,
-        style: TextStyle(color: textColor),
+        style: TextStyle(color: textColor, fontSize: 18),
       )),
       onPressed: disabled ? null : onPressed,
       splashColor: Colors.blue[400],

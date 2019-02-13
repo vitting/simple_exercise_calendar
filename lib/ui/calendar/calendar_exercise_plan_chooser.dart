@@ -4,6 +4,7 @@ import 'package:simple_exercise_calendar/helpers/common_functions.dart';
 import 'package:simple_exercise_calendar/helpers/date_time_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
+import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/helpers/title_two_lines_widget.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercises_detail.dart';
 
@@ -15,18 +16,17 @@ class CalendarExercisePlanChooser extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: TitleTwoLines(
-            line1: "Tilføj en plan til",
-            line2: DateTimeHelpers.dDmmyyyy(date),
-          )
-        ),
+            title: TitleTwoLines(
+          line1: "Tilføj en plan til",
+          line2: DateTimeHelpers.dDmmyyyy(date),
+        )),
         body: FutureBuilder(
           future: ExercisePlanData.getExercisePlans(),
           builder: (BuildContext context,
               AsyncSnapshot<List<ExercisePlanData>> snapshot) {
             if (!snapshot.hasData) {
               return Container();
-            } 
+            }
 
             if (snapshot.hasData && snapshot.data.length == 0) {
               return Center(
@@ -47,9 +47,10 @@ class CalendarExercisePlanChooser extends StatelessWidget {
               itemBuilder: (BuildContext context, int position) {
                 var plan = snapshot.data[position];
                 return Card(
-                  // color: Colors.blueGrey[100],
+                  color: ThemeConfig.rowBackgroundColor,
                   child: ListTile(
-                    title: Text(plan.title),
+                    title: Text(plan.title,
+                        style: TextStyle(color: ThemeConfig.rowTextColor)),
                     trailing: IconButton(
                       tooltip: "Tilføj plan til dag",
                       color: Colors.blue,
@@ -58,12 +59,17 @@ class CalendarExercisePlanChooser extends StatelessWidget {
                         children: <Widget>[
                           Icon(
                             FontAwesomeIcons.heart,
+                            color: ThemeConfig.rowTextColor,
                             size: 40,
                           ),
                           Positioned(
-                            top: 10,
+                            top: 9,
                             left: 10,
-                            child: Icon(Icons.add, size: 20,),
+                            child: Icon(
+                              Icons.add,
+                              color: ThemeConfig.rowTextColor,
+                              size: 20,
+                            ),
                           )
                         ],
                       ),

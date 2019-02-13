@@ -5,6 +5,7 @@ import 'package:simple_exercise_calendar/helpers/common_functions.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
+import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/helpers/title_two_lines_widget.dart';
 
 class ExercisesDetail extends StatefulWidget {
@@ -25,15 +26,16 @@ class ExercisesDetailState extends State<ExercisesDetail> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (!widget.create) {
-      _getData();
-    }
+    _getData();
   }
 
   void _getData() async {
     List<ExerciseData> list = await widget.plan.getExercises();
     setState(() {
       _list = list;
+      _list.forEach((v) {
+        print("${v.index} - ${v.text}");
+      });
     });
   }
 
@@ -41,38 +43,58 @@ class ExercisesDetailState extends State<ExercisesDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blueGrey,
-          onPressed: () async {
-            _addExerciseToPlan(context);
-          },
-          child: Icon(Icons.add, size: 30),
-        ),
+        floatingActionButton: widget.create
+            ? FloatingActionButton(
+                backgroundColor:
+                    ThemeConfig.floatingActionButtonBackgroundColor,
+                onPressed: () async {
+                  _addExerciseToPlan(context);
+                },
+                child: Icon(Icons.add, size: 30),
+              )
+            : null,
         appBar: AppBar(
             title: TitleTwoLines(
           line1: "Plan:",
           line2: widget.plan.title,
         )),
-        body: _list.length == 0
-            ? Center(
-                child: NoData(
-                  backgroundIcon: FontAwesomeIcons.heart,
-                  text: "Ingen øvelser fundet",
-                  text2: "Opret en øvelse",
-                  buttonIcon: Icons.add_circle_outline,
-                  onIconTap: (_) {},
-                ),
-              )
+        body: _createList());
+  }
 
-            /// Fix to avoid bug in DragAndDropList when only 1 element is present and dragged
-            : _list.length == 1
-                ? _createExerciseRow(_list[0])
-                : DragAndDropList<ExerciseData>(_list,
-                    onDragFinish: _onDragFinish,
-                    canBeDraggedTo: (int one, int two) => true,
-                    itemBuilder: (BuildContext context, ExerciseData item) {
-                      return _createExerciseRow(item);
-                    }));
+  Widget _createList() {
+    Widget value = Center(
+      child: NoData(
+        backgroundIcon: FontAwesomeIcons.heart,
+        text: "Ingen øvelser fundet",
+        text2: widget.create ? "Opret en øvelse" : null,
+        buttonIcon: widget.create ? Icons.add_circle_outline : null,
+        onIconTap: widget.create ? (_) {} : null,
+      ),
+    );
+
+    if (_list.length == 0) return value;
+
+    if (widget.create) {
+      if (_list.length == 1) {
+        /// Fix to avoid bug in DragAndDropList when only 1 element is present and dragged
+        return _createExerciseRow(_list[0]);
+      } else {
+        return DragAndDropList<ExerciseData>(_list,
+            onDragFinish: _onDragFinish,
+            canBeDraggedTo: (int one, int two) => true,
+            itemBuilder: (BuildContext context, ExerciseData item) {
+              return _createExerciseRow(item);
+            });
+      }
+    } else {
+      return ListView.builder(
+        itemCount: _list.length,
+        itemBuilder: (BuildContext context, int position) {
+          ExerciseData item = _list[position];
+          return _createExerciseRow(item);
+        } 
+      );
+    }
   }
 
   void _addExerciseToPlan(BuildContext context) async {
@@ -96,53 +118,78 @@ class ExercisesDetailState extends State<ExercisesDetail> {
 
   Widget _createExerciseRow(ExerciseData item) {
     return Card(
-      color: Colors.blueGrey[700],
+      color: ThemeConfig.rowBackgroundColor,
       child: ListTile(
         title: Text(
           item.text,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: ThemeConfig.rowTextColor),
         ),
-        onLongPress: () {
-          _editExerciseText(item);
-        },
-        trailing: IconButton(
-            icon: Icon(
-              Icons.more_vert,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              _showBottomMenu(item);
-            }),
+        onTap: widget.create
+            ? () {
+                _editExerciseText(item);
+              }
+            : null,
+        trailing: widget.create
+            ? IconButton(
+                icon: Icon(
+                  Icons.more_vert,
+                  color: ThemeConfig.rowTextColor,
+                ),
+                onPressed: () {
+                  _showBottomMenu(item);
+                })
+            : null,
       ),
     );
   }
 
   void _showBottomMenu(ExerciseData item) async {
     int result = await showModalBottomSheet(
-        context: context,
-        builder: (BuildContext sheetContext) => Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                ListTile(
-                    leading: Icon(Icons.content_copy),
-                    title: Text("Kopier"),
+      context: context,
+      builder: (BuildContext sheetContext) => Container(
+          color: ThemeConfig.bottomSheetBackgroundColor,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Card(
+                color: ThemeConfig.bottomSheetRowColor,
+                child: ListTile(
+                    leading: Icon(Icons.content_copy,
+                        color: ThemeConfig.bottomSheetTextColor),
+                    title: Text("Kopier",
+                        style:
+                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
                       Navigator.of(sheetContext).pop(0);
                     }),
-                ListTile(
-                    leading: Icon(Icons.edit),
-                    title: Text("Redigere"),
+              ),
+              Card(
+                color: ThemeConfig.bottomSheetRowColor,
+                child: ListTile(
+                    leading: Icon(Icons.edit,
+                        color: ThemeConfig.bottomSheetTextColor),
+                    title: Text("Redigere",
+                        style:
+                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
                       Navigator.of(sheetContext).pop(1);
                     }),
-                ListTile(
-                    leading: Icon(Icons.delete),
-                    title: Text("Slet"),
+              ),
+              Card(
+                color: ThemeConfig.bottomSheetRowColor,
+                child: ListTile(
+                    leading: Icon(Icons.delete,
+                        color: ThemeConfig.bottomSheetTextColor),
+                    title: Text("Slet",
+                        style:
+                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
                       Navigator.of(sheetContext).pop(2);
-                    })
-              ],
-            ));
+                    }),
+              )
+            ],
+          )),
+    );
 
     if (result != null) {
       if (result == 0) {

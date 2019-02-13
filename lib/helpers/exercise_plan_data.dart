@@ -37,7 +37,7 @@ class ExercisePlanData {
         DbSql.tableExercises,
         where: "exercisePlanId = ?",
         whereArgs: [id],
-        orderBy: "'index'");
+        orderBy: "[index]");
     return data.map<ExerciseData>((Map<String, dynamic> item) {
       return ExerciseData.fromMap(item);
     }).toList();
