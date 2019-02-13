@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/event_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
@@ -66,8 +66,8 @@ class CalendarMainState extends State<CalendarMain> {
         markedDateShowIcon: true,
         markedDateMoreShowTotal: false,
         markedDateIconBuilder: (EventData item) {
-          return Icon(FontAwesomeIcons.heartbeat,
-              size: 30, color: Colors.blue[800].withAlpha(80));
+          return Icon(MdiIcons.heart,
+              size: 30, color: Colors.blue[800].withAlpha(90));
         },
         markedDateIconMaxShown: 1,
         markedDatesMap: _events,

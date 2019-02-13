@@ -32,6 +32,11 @@ class ExercisePlanData {
     return DbHelpers.deleteById(DbSql.tableExercisePlans, id);
   }
 
+  Future<int> getExercisesCount() async {
+    List<Map<String, dynamic>> data = await DbHelpers.getExercisesCount(id);
+    return data[0]["total"];
+  }
+
   Future<List<ExerciseData>> getExercises() async {
     List<Map<String, dynamic>> data = await DbHelpers.query(
         DbSql.tableExercises,

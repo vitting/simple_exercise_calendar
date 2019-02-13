@@ -15,4 +15,5 @@ class ThemeConfig {
   static final Color dialogTextColor = textColor;
   static final Color dialogButton1Color = Colors.deepOrange[700];
   static final Color dialogButton2Color = Colors.blueGrey[500];
+  static final Color iconSecondLayerColor = Colors.white54;
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/common_functions.dart';
 import 'package:simple_exercise_calendar/helpers/date_time_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/event_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
+import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 
 class CalendarDetail extends StatefulWidget {
@@ -37,11 +39,11 @@ class CalendarDetailState extends State<CalendarDetail> {
                     return Container();
                   }
 
-                  return Text(snapshot.data.title,
+                  return Text("Plan: ${snapshot.data.title}",
                       style: TextStyle(fontSize: 16));
                 },
               ),
-              Text(DateTimeHelpers.dDmmyyyy(widget.event.date),
+              Text("Dato: ${DateTimeHelpers.dDmmyyyy(widget.event.date)}",
                   style: TextStyle(fontSize: 16)),
             ],
           ),
@@ -78,11 +80,15 @@ class CalendarDetailState extends State<CalendarDetail> {
           builder: (BuildContext context,
               AsyncSnapshot<List<ExerciseData>> snapshot) {
             if (!snapshot.hasData) {
-              return Text("Ingen data");
+              return Container();
             }
 
             if (snapshot.hasData && snapshot.data.length == 0) {
-              return Text("Ingen data");
+              return Center(
+                child: NoData(
+                    backgroundIcon: FontAwesomeIcons.heart,
+                    text: "Ingen øvelser fundet"),
+              );
             }
 
             return ListView.builder(
@@ -90,7 +96,9 @@ class CalendarDetailState extends State<CalendarDetail> {
               itemBuilder: (BuildContext context, int position) {
                 ExerciseData item = snapshot.data[position];
                 return Card(
-                  color: item.closed ? ThemeConfig.rowBackgroundColor2 : ThemeConfig.rowBackgroundColor,
+                  color: item.closed
+                      ? ThemeConfig.rowBackgroundColor2
+                      : ThemeConfig.rowBackgroundColor,
                   child: CheckboxListTile(
                     value: item.closed,
                     onChanged: (bool value) async {

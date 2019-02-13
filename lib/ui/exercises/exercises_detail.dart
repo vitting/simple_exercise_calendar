@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_list_drag_and_drop/drag_and_drop_list.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/common_functions.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
@@ -50,7 +50,13 @@ class ExercisesDetailState extends State<ExercisesDetail> {
                 onPressed: () async {
                   _addExerciseToPlan(context);
                 },
-                child: Icon(Icons.add, size: 30),
+                child: Stack(
+                  children: <Widget>[
+                    Center(child: Icon(Icons.add, size: 40, color: ThemeConfig.textColor)),
+                    Center(child: Icon(MdiIcons.dumbbell, size: 40, color: ThemeConfig.iconSecondLayerColor)),
+                    
+                  ],
+                ),
               )
             : null,
         appBar: AppBar(
@@ -64,7 +70,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
   Widget _createList() {
     Widget value = Center(
       child: NoData(
-        backgroundIcon: FontAwesomeIcons.heart,
+        backgroundIcon: MdiIcons.dumbbell,
         text: "Ingen øvelser fundet",
         text2: widget.create ? "Opret en øvelse" : null,
         buttonIcon: widget.create ? Icons.add_circle_outline : null,
@@ -199,7 +205,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
       } else if (result == 1) {
         _editExerciseText(item);
       } else if (result == 2) {
-        bool delete = await showDeleteDialog(context, "Slet denne plan?");
+        bool delete = await showDeleteDialog(context, "Slet denne øvelse?");
         if (delete != null && delete) {
           setState(() {
             _list.remove(item);

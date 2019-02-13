@@ -15,7 +15,7 @@ class DbHelpers {
   static Future<Database> get db async {
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath, dbName);
-    Sqflite.setDebugModeOn();
+    // Sqflite.setDebugModeOn();
     if (_db == null || !_db.isOpen) {
       try {
         await Directory(databasesPath).create(recursive: true);
@@ -143,5 +143,10 @@ class DbHelpers {
   static Future<List<Map<String, dynamic>>> getEventsForMonth(int startDateInMilliseconds, int endDateInMilliseconds) async {
     Database dbCon = await db;
     return dbCon.rawQuery("SELECT * FROM ${DbSql.tableEvents} WHERE date BETWEEN ? and ?", [startDateInMilliseconds, endDateInMilliseconds]);
+  }
+
+  static Future<List<Map<String, dynamic>>> getExercisesCount(String exerciseId) async {
+    Database dbCon = await db;
+    return dbCon.rawQuery("SELECT COUNT([id]) as total FROM ${DbSql.tableExercises} WHERE exercisePlanId = ?", [exerciseId]);
   }
 }

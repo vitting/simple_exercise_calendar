@@ -24,7 +24,16 @@ class ExercisesMainState extends State<ExercisesMain> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: ThemeConfig.floatingActionButtonBackgroundColor,
           tooltip: "Tilføj ny plan",
-          child: Icon(Icons.add, size: 30),
+          child: Stack(
+            children: <Widget>[
+              Center(
+                  child:
+                      Icon(Icons.add, size: 40, color: ThemeConfig.textColor)),
+              Center(
+                  child:
+                      Icon(Icons.view_list, size: 40, color: Colors.white54)),
+            ],
+          ),
           onPressed: () {
             addNewPlan(context);
           },
@@ -40,7 +49,7 @@ class ExercisesMainState extends State<ExercisesMain> {
             if (snapshot.hasData && snapshot.data.length == 0) {
               return Center(
                 child: NoData(
-                  backgroundIcon: FontAwesomeIcons.heart,
+                  backgroundIcon: Icons.view_list,
                   text: "Ingen planer fundet",
                   text2: "Opret en ny plan",
                   buttonIcon: Icons.add_circle_outline,
@@ -58,7 +67,51 @@ class ExercisesMainState extends State<ExercisesMain> {
                 return Card(
                   color: ThemeConfig.rowBackgroundColor,
                   child: ListTile(
-                    title: Text(plan.title, style: TextStyle(color: ThemeConfig.rowTextColor)),
+                    title: Row(
+                      children: <Widget>[
+                        Expanded(
+                            child: Text(plan.title,
+                                style: TextStyle(
+                                    color: ThemeConfig.rowTextColor))),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Tooltip(
+                            message: "Antal øvelser",
+                            child: Stack(
+                              children: <Widget>[
+                                Container(
+                                  width: 28,
+                                  height: 28,
+                                  decoration: BoxDecoration(
+                                      color: Colors.cyan[800],
+                                      shape: BoxShape.circle),
+                                  child: FutureBuilder(
+                                    future: plan.getExercisesCount(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<int> snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                            child: Text("0",
+                                                style: TextStyle(
+                                                    color:
+                                                        ThemeConfig.textColor,
+                                                    fontSize: 12)));
+                                      }
+
+                                      return Center(
+                                          child: Text(snapshot.data.toString(),
+                                              style: TextStyle(
+                                                  color: ThemeConfig.textColor,
+                                                  fontSize: 12)));
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) => ExercisesDetail(
@@ -70,7 +123,7 @@ class ExercisesMainState extends State<ExercisesMain> {
                       _editPlanTitle(plan);
                     },
                     trailing: IconButton(
-                      color: ThemeConfig.rowTextColor,
+                        color: ThemeConfig.rowTextColor,
                         icon: Icon(
                           Icons.more_vert,
                         ),
@@ -87,42 +140,51 @@ class ExercisesMainState extends State<ExercisesMain> {
 
   void _showBottomMenu(ExercisePlanData plan) async {
     int result = await showModalBottomSheet(
-        context: context,
-        builder: (BuildContext sheetContext) => Container(
+      context: context,
+      builder: (BuildContext sheetContext) => Container(
           color: ThemeConfig.bottomSheetBackgroundColor,
           child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Card(
-                  color: ThemeConfig.bottomSheetRowColor,
-                                  child: ListTile(
-                      leading: Icon(Icons.content_copy, color: ThemeConfig.bottomSheetTextColor),
-                      title: Text("Kopier", style: TextStyle(color: ThemeConfig.bottomSheetTextColor)),
-                      onTap: () {
-                        Navigator.of(sheetContext).pop(0);
-                      }),
-                ),
-                Card(
-                  color: ThemeConfig.bottomSheetRowColor,
-                                  child: ListTile(
-                      leading: Icon(Icons.edit, color: ThemeConfig.bottomSheetTextColor),
-                      title: Text("Redigere", style: TextStyle(color: ThemeConfig.bottomSheetTextColor)),
-                      onTap: () {
-                        Navigator.of(sheetContext).pop(1);
-                      }),
-                ),
-                Card(
-                  color: ThemeConfig.bottomSheetRowColor,
-                                  child: ListTile(
-                      leading: Icon(Icons.delete, color: ThemeConfig.bottomSheetTextColor),
-                      title: Text("Slet", style: TextStyle(color: ThemeConfig.bottomSheetTextColor)),
-                      onTap: () {
-                        Navigator.of(sheetContext).pop(2);
-                      }),
-                )
-              ],
-            )),
-        );
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Card(
+                color: ThemeConfig.bottomSheetRowColor,
+                child: ListTile(
+                    leading: Icon(Icons.content_copy,
+                        color: ThemeConfig.bottomSheetTextColor),
+                    title: Text("Kopier",
+                        style:
+                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
+                    onTap: () {
+                      Navigator.of(sheetContext).pop(0);
+                    }),
+              ),
+              Card(
+                color: ThemeConfig.bottomSheetRowColor,
+                child: ListTile(
+                    leading: Icon(Icons.edit,
+                        color: ThemeConfig.bottomSheetTextColor),
+                    title: Text("Redigere",
+                        style:
+                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
+                    onTap: () {
+                      Navigator.of(sheetContext).pop(1);
+                    }),
+              ),
+              Card(
+                color: ThemeConfig.bottomSheetRowColor,
+                child: ListTile(
+                    leading: Icon(Icons.delete,
+                        color: ThemeConfig.bottomSheetTextColor),
+                    title: Text("Slet",
+                        style:
+                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
+                    onTap: () {
+                      Navigator.of(sheetContext).pop(2);
+                    }),
+              )
+            ],
+          )),
+    );
 
     if (result != null) {
       if (result == 0) {

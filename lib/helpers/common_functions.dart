@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
+import 'package:simple_exercise_calendar/helpers/exit_dialog.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercise_delete_dialog.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercise_edit_dialog.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercises_detail.dart';
@@ -23,8 +24,15 @@ Future<bool> showDeleteDialog(BuildContext context, String bodyText) {
           ExerciseDeleteDialog(bodyText: bodyText));
 }
 
+Future<bool> showExitDialog(BuildContext context, String bodyText) {
+  return showDialog<bool>(
+      context: context,
+      builder: (BuildContext dialogContext) =>
+          ExitDialog(bodyText: bodyText));
+}
+
 void addNewPlan(BuildContext context) async {
-  String title = await showEditDialog(context, "Create Plan", "Plan name", "", true);
+  String title = await showEditDialog(context, "Opret ny plan", "Plan navn", "", true);
 
   if (title != null && title.isNotEmpty) {
     ExercisePlanData plan = ExercisePlanData(title: title);
