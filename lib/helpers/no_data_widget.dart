@@ -48,7 +48,10 @@ class NoData extends StatelessWidget {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
-                                    color: Colors.white)),
+                                    color: Colors.white70)),
+                            text != null && text2 != null && buttonIcon == null
+                                ? SizedBox(height: 60)
+                                : Container(),
                             buttonIcon == null
                                 ? Container()
                                 : IconButton(
@@ -68,7 +71,7 @@ class NoData extends StatelessWidget {
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14,
-                                            color: Colors.white))),
+                                            color: Colors.white70))),
                           ],
                         ),
                       )),

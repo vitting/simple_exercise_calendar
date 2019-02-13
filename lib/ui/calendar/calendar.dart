@@ -32,8 +32,6 @@ class CalendarMainState extends State<CalendarMain> {
         iconColor: ThemeConfig.textColor,
         headerTextStyle: TextStyle(color: ThemeConfig.textColor),
         headerTitleTouchable: true,
-        // minSelectedDate: ,
-        //  maxSelectedDate: ,
         todayButtonColor: ThemeConfig.defaultBackgroundColor,
         dayButtonColor: Colors.blueGrey[50],
         onCalendarChanged: (DateTime date) {
@@ -66,8 +64,15 @@ class CalendarMainState extends State<CalendarMain> {
         markedDateShowIcon: true,
         markedDateMoreShowTotal: false,
         markedDateIconBuilder: (EventData item) {
-          return Icon(MdiIcons.heart,
-              size: 30, color: Colors.blue[800].withAlpha(90));
+          return Stack(
+            children: <Widget>[
+              Positioned(
+                left: -1,
+                child: Icon(MdiIcons.heart,
+                    size: 35, color: Colors.blue[800].withAlpha(90)),
+              )
+            ],
+          );
         },
         markedDateIconMaxShown: 1,
         markedDatesMap: _events,

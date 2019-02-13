@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/common_functions.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
+import 'package:simple_exercise_calendar/ui/exercises/dot_counter_exercises.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercises_detail.dart';
 
 class ExercisesMain extends StatefulWidget {
@@ -18,6 +18,9 @@ class ExercisesMainState extends State<ExercisesMain> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          actions: <Widget>[
+            Icon(Icons.view_list)
+          ],
           title: Text("Planer"),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -52,7 +55,6 @@ class ExercisesMainState extends State<ExercisesMain> {
                   backgroundIcon: Icons.view_list,
                   text: "Ingen planer fundet",
                   text2: "Opret en ny plan",
-                  buttonIcon: Icons.add_circle_outline,
                   onIconTap: (_) {
                     addNewPlan(context);
                   },
@@ -74,42 +76,8 @@ class ExercisesMainState extends State<ExercisesMain> {
                                 style: TextStyle(
                                     color: ThemeConfig.rowTextColor))),
                         Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Tooltip(
-                            message: "Antal øvelser",
-                            child: Stack(
-                              children: <Widget>[
-                                Container(
-                                  width: 28,
-                                  height: 28,
-                                  decoration: BoxDecoration(
-                                      color: Colors.cyan[800],
-                                      shape: BoxShape.circle),
-                                  child: FutureBuilder(
-                                    future: plan.getExercisesCount(),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<int> snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                            child: Text("0",
-                                                style: TextStyle(
-                                                    color:
-                                                        ThemeConfig.textColor,
-                                                    fontSize: 12)));
-                                      }
-
-                                      return Center(
-                                          child: Text(snapshot.data.toString(),
-                                              style: TextStyle(
-                                                  color: ThemeConfig.textColor,
-                                                  fontSize: 12)));
-                                    },
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        )
+                            padding: const EdgeInsets.only(left: 5),
+                            child: DotCounterExercises(plan: plan))
                       ],
                     ),
                     onTap: () {
@@ -196,7 +164,7 @@ class ExercisesMainState extends State<ExercisesMain> {
       } else if (result == 1) {
         _editPlanTitle(plan);
       } else if (result == 2) {
-        bool delete = await showDeleteDialog(context, "Delete Plan?");
+        bool delete = await showDeleteDialog(context, "Slet", "Slet Planen?");
         if (delete != null && delete) {
           await plan.delete();
         }

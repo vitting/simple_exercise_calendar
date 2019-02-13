@@ -17,11 +17,11 @@ Future<String> showEditDialog(
           ));
 }
 
-Future<bool> showDeleteDialog(BuildContext context, String bodyText) {
+Future<bool> showDeleteDialog(BuildContext context, String titleText, String bodyText) {
   return showDialog<bool>(
       context: context,
       builder: (BuildContext dialogContext) =>
-          ExerciseDeleteDialog(bodyText: bodyText));
+          ExerciseDeleteDialog(titleText: titleText, bodyText: bodyText));
 }
 
 Future<bool> showExitDialog(BuildContext context, String bodyText) {

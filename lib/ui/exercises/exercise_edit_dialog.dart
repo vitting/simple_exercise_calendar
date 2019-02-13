@@ -16,7 +16,8 @@ class ExerciseEditDialog extends StatefulWidget {
       this.title,
       this.lable,
       this.value = "",
-      this.buttonText = "Gem", this.autoFocus = false})
+      this.buttonText = "Gem",
+      this.autoFocus = false})
       : super(key: key);
   @override
   ExerciseEditDialogState createState() {
@@ -58,12 +59,14 @@ class ExerciseEditDialogState extends State<ExerciseEditDialog> {
                 style: TextStyle(color: ThemeConfig.dialogTextColor),
                 decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: ThemeConfig.dialogTextColor)),
+                        borderSide:
+                            BorderSide(color: ThemeConfig.dialogTextColor)),
                     focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: ThemeConfig.dialogTextColor)),
+                        borderSide:
+                            BorderSide(color: ThemeConfig.dialogTextColor)),
                     isDense: true,
                     labelText: widget.lable,
-                    labelStyle: TextStyle(color: ThemeConfig.dialogTextColor)),
+                    labelStyle: TextStyle(color: ThemeConfig.dialogTextColor.withOpacity(0.8))),
                 validator: (String value) {
                   if (value.trim().isEmpty) {
                     return "Fill out ${widget.lable}";

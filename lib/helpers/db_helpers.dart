@@ -53,8 +53,6 @@ class DbHelpers {
               // await db.execute("${DbSql.createExercises}");
               // await db.execute("${DbSql.createEvents}");
 
-
-
               // await db.execute("${DbSql.dropExercisePlans}");
               // await db.execute("${DbSql.dropExercises}");
               // await db.execute("${DbSql.dropEvents}");
@@ -77,9 +75,11 @@ class DbHelpers {
     return _db;
   }
 
-  static Future<dynamic> close() async {
-    Database dbCon = await db;
-    return dbCon.close();
+  static void close() {
+    print("DB CLOSE");
+    if (_db == null || _db.isOpen) {
+      _db.close();
+    }
   }
 
   static Future<int> insert(String table, Map<String, dynamic> item) async {
@@ -98,7 +98,8 @@ class DbHelpers {
     return dbCon.delete(table, where: "${DbSql.colId} = ?", whereArgs: [id]);
   }
 
-  static Future<int> deleteExercisesByExerciseplanId(String exercisePlanId) async {
+  static Future<int> deleteExercisesByExerciseplanId(
+      String exercisePlanId) async {
     Database dbCon = await db;
     return dbCon.delete(DbSql.tableExercises,
         where: "${DbSql.colExercisePlanId} = ?", whereArgs: [exercisePlanId]);
@@ -122,31 +123,45 @@ class DbHelpers {
 
   static Future<int> updateExerciseIndex(String exerciseId, int index) async {
     Database dbCon = await db;
-    return dbCon.rawUpdate("UPDATE ${DbSql.tableExercises} SET 'index' = ? WHERE id = ?", [index, exerciseId]);
+    return dbCon.rawUpdate(
+        "UPDATE ${DbSql.tableExercises} SET 'index' = ? WHERE id = ?",
+        [index, exerciseId]);
   }
 
   static Future<int> updateExerciseText(String id, String text) async {
     Database dbCon = await db;
-    return dbCon.rawUpdate("UPDATE ${DbSql.tableExercises} SET 'text' = ? WHERE id = ?", [text, id]);
+    return dbCon.rawUpdate(
+        "UPDATE ${DbSql.tableExercises} SET 'text' = ? WHERE id = ?",
+        [text, id]);
   }
 
   static Future<int> updateExerciseClosed(String id, bool closed) async {
     Database dbCon = await db;
-    return dbCon.rawUpdate("UPDATE ${DbSql.tableExercises} SET 'closed' = ? WHERE id = ?", [closed, id]);
+    return dbCon.rawUpdate(
+        "UPDATE ${DbSql.tableExercises} SET 'closed' = ? WHERE id = ?",
+        [closed, id]);
   }
 
   static Future<int> updatePlanTitle(String id, String title) async {
     Database dbCon = await db;
-    return dbCon.rawUpdate("UPDATE ${DbSql.tableExercisePlans} SET 'title' = ? WHERE id = ?", [title, id]);
+    return dbCon.rawUpdate(
+        "UPDATE ${DbSql.tableExercisePlans} SET 'title' = ? WHERE id = ?",
+        [title, id]);
   }
 
-  static Future<List<Map<String, dynamic>>> getEventsForMonth(int startDateInMilliseconds, int endDateInMilliseconds) async {
+  static Future<List<Map<String, dynamic>>> getEventsForMonth(
+      int startDateInMilliseconds, int endDateInMilliseconds) async {
     Database dbCon = await db;
-    return dbCon.rawQuery("SELECT * FROM ${DbSql.tableEvents} WHERE date BETWEEN ? and ?", [startDateInMilliseconds, endDateInMilliseconds]);
+    return dbCon.rawQuery(
+        "SELECT * FROM ${DbSql.tableEvents} WHERE date BETWEEN ? and ?",
+        [startDateInMilliseconds, endDateInMilliseconds]);
   }
 
-  static Future<List<Map<String, dynamic>>> getExercisesCount(String exerciseId) async {
+  static Future<List<Map<String, dynamic>>> getExercisesCount(
+      String exerciseId) async {
     Database dbCon = await db;
-    return dbCon.rawQuery("SELECT COUNT([id]) as total FROM ${DbSql.tableExercises} WHERE exercisePlanId = ?", [exerciseId]);
+    return dbCon.rawQuery(
+        "SELECT COUNT([id]) as total FROM ${DbSql.tableExercises} WHERE exercisePlanId = ?",
+        [exerciseId]);
   }
 }

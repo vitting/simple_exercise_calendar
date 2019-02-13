@@ -52,30 +52,33 @@ class ExercisesDetailState extends State<ExercisesDetail> {
                 },
                 child: Stack(
                   children: <Widget>[
-                    Center(child: Icon(Icons.add, size: 40, color: ThemeConfig.textColor)),
-                    Center(child: Icon(MdiIcons.dumbbell, size: 40, color: ThemeConfig.iconSecondLayerColor)),
-                    
+                    Center(
+                        child: Icon(Icons.add,
+                            size: 40, color: ThemeConfig.textColor)),
+                    Center(
+                        child: Icon(MdiIcons.dumbbell,
+                            size: 40, color: ThemeConfig.iconSecondLayerColor)),
                   ],
                 ),
               )
             : null,
         appBar: AppBar(
+          actions: <Widget>[
+            Icon(MdiIcons.dumbbell)
+          ],
             title: TitleTwoLines(
-          line1: "Plan:",
-          line2: widget.plan.title,
-        )),
+                line1: "Øvelser",
+                line2: "Plan: ${widget.plan.title}",
+              )),
         body: _createList());
   }
 
   Widget _createList() {
     Widget value = Center(
       child: NoData(
-        backgroundIcon: MdiIcons.dumbbell,
-        text: "Ingen øvelser fundet",
-        text2: widget.create ? "Opret en øvelse" : null,
-        buttonIcon: widget.create ? Icons.add_circle_outline : null,
-        onIconTap: widget.create ? (_) {} : null,
-      ),
+          backgroundIcon: MdiIcons.dumbbell,
+          text: "Ingen øvelser fundet",
+          text2: widget.create ? "Opret en øvelse" : null),
     );
 
     if (_list.length == 0) return value;
@@ -94,12 +97,11 @@ class ExercisesDetailState extends State<ExercisesDetail> {
       }
     } else {
       return ListView.builder(
-        itemCount: _list.length,
-        itemBuilder: (BuildContext context, int position) {
-          ExerciseData item = _list[position];
-          return _createExerciseRow(item);
-        } 
-      );
+          itemCount: _list.length,
+          itemBuilder: (BuildContext context, int position) {
+            ExerciseData item = _list[position];
+            return _createExerciseRow(item);
+          });
     }
   }
 
@@ -205,7 +207,8 @@ class ExercisesDetailState extends State<ExercisesDetail> {
       } else if (result == 1) {
         _editExerciseText(item);
       } else if (result == 2) {
-        bool delete = await showDeleteDialog(context, "Slet denne øvelse?");
+        bool delete =
+            await showDeleteDialog(context, "Slet", "Slet denne øvelse?");
         if (delete != null && delete) {
           setState(() {
             _list.remove(item);

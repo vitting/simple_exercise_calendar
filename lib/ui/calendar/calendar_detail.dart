@@ -53,7 +53,7 @@ class CalendarDetailState extends State<CalendarDetail> {
               onSelected: (int value) async {
                 if (value == 0) {
                   bool delete =
-                      await showDeleteDialog(context, "Fjern Planen?");
+                      await showDeleteDialog(context, "Fjern", "Fjern Planen?");
                   if (delete != null && delete) {
                     await widget.event.deleteExercisePlan();
                     await widget.event.delete();

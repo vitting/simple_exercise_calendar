@@ -16,10 +16,11 @@ class CalendarExercisePlanChooser extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+            actions: <Widget>[Icon(FontAwesomeIcons.heart)],
             title: TitleTwoLines(
-          line1: "Tilføj en plan til",
-          line2: DateTimeHelpers.dDmmyyyy(date),
-        )),
+              line1: "Tilføj en plan til",
+              line2: DateTimeHelpers.dDmmyyyy(date),
+            )),
         body: FutureBuilder(
           future: ExercisePlanData.getExercisePlans(),
           builder: (BuildContext context,
@@ -53,17 +54,19 @@ class CalendarExercisePlanChooser extends StatelessWidget {
                         style: TextStyle(color: ThemeConfig.rowTextColor)),
                     trailing: IconButton(
                       tooltip: "Tilføj plan til dag",
-                      color: Colors.blue,
-                      splashColor: Colors.blue,
                       icon: Stack(
+                        overflow: Overflow.visible,
                         children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.heart,
-                            color: ThemeConfig.rowTextColor,
-                            size: 40,
+                          Positioned(
+                            top: -3,
+                            child: Icon(
+                              FontAwesomeIcons.heart,
+                              color: ThemeConfig.rowTextColor,
+                              size: 40,
+                            ),
                           ),
                           Positioned(
-                            top: 9,
+                            top: 6,
                             left: 10,
                             child: Icon(
                               Icons.add,

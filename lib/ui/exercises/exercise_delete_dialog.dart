@@ -4,9 +4,10 @@ import 'package:simple_exercise_calendar/helpers/round_button_widget.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 
 class ExerciseDeleteDialog extends StatelessWidget {
+  final String titleText;
   final String bodyText;
 
-  const ExerciseDeleteDialog({Key key, @required this.bodyText}) : super(key: key);
+  const ExerciseDeleteDialog({Key key, @required this.titleText, @required this.bodyText}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
@@ -17,7 +18,7 @@ class ExerciseDeleteDialog extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text("Slet", style: TextStyle(color: ThemeConfig.dialogTextColor)),
+            Text(titleText, style: TextStyle(color: ThemeConfig.dialogTextColor)),
             CloseButtonWidget(color: ThemeConfig.dialogTextColor,)
           ],
         ),
