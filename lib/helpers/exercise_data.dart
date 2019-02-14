@@ -10,6 +10,7 @@ class ExerciseData {
   double weight;
   int seconds;
   int repetitions;
+  int repetitionsDone;
   int index;
   bool closed;
 
@@ -21,6 +22,7 @@ class ExerciseData {
       this.seconds = 0,
       this.weight = 0.0,
       this.repetitions = 0,
+      this.repetitionsDone = 0,
       this.index = 0,
       this.closed = false});
 
@@ -68,6 +70,11 @@ class ExerciseData {
     return DbHelpers.updateExerciseRepetitions(id, repetitions);
   }
 
+  Future<int> updateRepetitionsDone(int repetitionsDone) {
+    this.repetitionsDone = repetitionsDone;
+    return DbHelpers.updateExerciseRepetitionsDone(id, repetitionsDone);
+  }
+
   Map<String, dynamic> toMap() {
     return {
       "id": id,
@@ -77,6 +84,7 @@ class ExerciseData {
       "seconds": seconds,
       "weight": weight,
       "repetitions": repetitions,
+      "repetitionsDone": repetitionsDone,
       "index": index,
       "closed": closed
     };
@@ -91,6 +99,7 @@ class ExerciseData {
         seconds: item["seconds"],
         weight: item["weight"],
         repetitions: item["repetitions"],
+        repetitionsDone: item["repetitionsDone"],
         index: item["index"],
         closed: item["closed"] == 1);
   }
@@ -104,6 +113,7 @@ class ExerciseData {
         seconds: item.seconds,
         weight: item.weight,
         repetitions: item.repetitions,
+        repetitionsDone: item.repetitionsDone,
         closed: false,
         index: item.index);
   }

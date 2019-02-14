@@ -6,11 +6,19 @@ import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 class ExerciseSub extends StatelessWidget {
   final ExerciseData item;
   final bool editMode;
+  final int repetitionsDone;
   final ValueChanged<bool> onTapSeconds;
   final ValueChanged<bool> onTapWeight;
   final ValueChanged<bool> onTapRepetitions;
 
-  const ExerciseSub({Key key, this.item, this.editMode = false, this.onTapRepetitions, this.onTapSeconds, this.onTapWeight})
+  const ExerciseSub(
+      {Key key,
+      this.item,
+      this.editMode = false,
+      this.onTapRepetitions,
+      this.repetitionsDone = 0,
+      this.onTapSeconds,
+      this.onTapWeight})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -26,18 +34,20 @@ class ExerciseSub extends StatelessWidget {
                         ? ThemeConfig.rowTextColor2
                         : ThemeConfig.rowTextColor))
             : Container(),
-        item.description.isNotEmpty ? SizedBox(height: 5) : Container(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             InkWell(
-              onTap: editMode ? () {
-                if (onTapSeconds != null) {
-                  onTapSeconds(true);
-                }
-              } : null,
+              borderRadius: BorderRadius.circular(360),
+              onTap: editMode
+                  ? () {
+                      if (onTapSeconds != null) {
+                        onTapSeconds(true);
+                      }
+                    }
+                  : null,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5),
+                padding: const EdgeInsets.all(10),
                 child: Row(
                   children: <Widget>[
                     Padding(
@@ -45,7 +55,7 @@ class ExerciseSub extends StatelessWidget {
                       child: Icon(Icons.timer,
                           color: item.closed
                               ? ThemeConfig.rowTextColor2
-                              : ThemeConfig.rowTextColor,
+                              : ThemeConfig.rowSubTextColor,
                           size: 20),
                     ),
                     Text("${item.seconds.toString()} sek",
@@ -58,13 +68,16 @@ class ExerciseSub extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: editMode ? () {
-                if (onTapWeight != null) {
-                  onTapWeight(true);
-                }
-              } : null,
+              borderRadius: BorderRadius.circular(360),
+              onTap: editMode
+                  ? () {
+                      if (onTapWeight != null) {
+                        onTapWeight(true);
+                      }
+                    }
+                  : null,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5),
+                padding: const EdgeInsets.all(10),
                 child: Row(
                   children: <Widget>[
                     Padding(
@@ -72,7 +85,7 @@ class ExerciseSub extends StatelessWidget {
                       child: Icon(MdiIcons.weight,
                           color: item.closed
                               ? ThemeConfig.rowTextColor2
-                              : ThemeConfig.rowTextColor,
+                              : ThemeConfig.rowSubTextColor,
                           size: 20),
                     ),
                     Text("${item.weight.toString()} kg",
@@ -85,13 +98,23 @@ class ExerciseSub extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {
-                if (onTapRepetitions != null) {
-                  onTapRepetitions(true);
-                }
-              },
+              borderRadius: BorderRadius.circular(360),
+              onTap: item.closed
+                  ? null
+                  : () {
+                      if (onTapRepetitions != null) {
+                        onTapRepetitions(true);
+                      }
+                    },
+              onLongPress: item.closed
+                  ? null
+                  : () {
+                      if (onTapRepetitions != null) {
+                        onTapRepetitions(false);
+                      }
+                    },
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5),
+                padding: const EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
@@ -100,7 +123,7 @@ class ExerciseSub extends StatelessWidget {
                       child: Icon(MdiIcons.repeat,
                           color: item.closed
                               ? ThemeConfig.rowTextColor2
-                              : ThemeConfig.rowTextColor,
+                              : ThemeConfig.rowSubTextColor,
                           size: 20),
                     ),
                     editMode
@@ -109,7 +132,7 @@ class ExerciseSub extends StatelessWidget {
                                 color: item.closed
                                     ? ThemeConfig.rowTextColor2
                                     : ThemeConfig.rowTextColor))
-                        : Text("0/${item.repetitions.toString()}",
+                        : Text("${repetitionsDone.toString()}/${item.repetitions.toString()}",
                             style: TextStyle(
                                 color: item.closed
                                     ? ThemeConfig.rowTextColor2

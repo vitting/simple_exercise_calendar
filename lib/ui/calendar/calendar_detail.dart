@@ -6,8 +6,7 @@ import 'package:simple_exercise_calendar/helpers/event_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
-import 'package:simple_exercise_calendar/helpers/theme_config.dart';
-import 'package:simple_exercise_calendar/ui/exercises/exercise_sub_widget.dart';
+import 'package:simple_exercise_calendar/ui/calendar/calendar_detail_row_widget.dart';
 
 class CalendarDetail extends StatefulWidget {
   final EventData event;
@@ -96,22 +95,8 @@ class CalendarDetailState extends State<CalendarDetail> {
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int position) {
                 ExerciseData item = snapshot.data[position];
-                return Card(
-                  color: item.closed
-                      ? ThemeConfig.rowBackgroundColor2
-                      : ThemeConfig.rowBackgroundColor,
-                  child: CheckboxListTile(
-                    value: item.closed,
-                    onChanged: (bool value) async {
-                      await item.updateClosed(value);
-                      setState(() {});
-                    },
-                    title: Text(item.text,
-                        style: TextStyle(
-                            color: item.closed ? ThemeConfig.rowTextColor2 : ThemeConfig.rowTextColor,
-                            fontWeight: FontWeight.normal)),
-                    subtitle: ExerciseSub(item: item, editMode: false),
-                  ),
+                return CalendarDetailRow(
+                  item: item,
                 );
               },
             );

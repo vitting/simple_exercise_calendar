@@ -157,6 +157,13 @@ class DbHelpers {
         [repetitions, id]);
   }
 
+  static Future<int> updateExerciseRepetitionsDone(String id, int repetitionsDone) async {
+    Database dbCon = await db;
+    return dbCon.rawUpdate(
+        "UPDATE ${DbSql.tableExercises} SET 'repetitionsDone' = ? WHERE id = ?",
+        [repetitionsDone, id]);
+  }
+
   static Future<int> updatePlanTitle(String id, String title) async {
     Database dbCon = await db;
     return dbCon.rawUpdate(
