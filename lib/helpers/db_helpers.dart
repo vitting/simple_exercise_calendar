@@ -15,7 +15,7 @@ class DbHelpers {
   static Future<Database> get db async {
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath, dbName);
-    // Sqflite.setDebugModeOn();
+    Sqflite.setDebugModeOn();
     if (_db == null || !_db.isOpen) {
       try {
         await Directory(databasesPath).create(recursive: true);
@@ -49,13 +49,14 @@ class DbHelpers {
           }, onOpen: (Database db) async {
             try {
               print("ONOPEN");
-              // await db.execute("${DbSql.createExercisePlans}");
-              // await db.execute("${DbSql.createExercises}");
-              // await db.execute("${DbSql.createEvents}");
-
               // await db.execute("${DbSql.dropExercisePlans}");
+              // await db.execute("${DbSql.createExercisePlans}");
+              
               // await db.execute("${DbSql.dropExercises}");
+              // await db.execute("${DbSql.createExercises}");
+              
               // await db.execute("${DbSql.dropEvents}");
+              // await db.execute("${DbSql.createEvents}");
             } catch (error) {
               print("DB ONOPEN ERROR: $error");
             }
@@ -128,18 +129,32 @@ class DbHelpers {
         [index, exerciseId]);
   }
 
-  static Future<int> updateExerciseText(String id, String text) async {
-    Database dbCon = await db;
-    return dbCon.rawUpdate(
-        "UPDATE ${DbSql.tableExercises} SET 'text' = ? WHERE id = ?",
-        [text, id]);
-  }
-
   static Future<int> updateExerciseClosed(String id, bool closed) async {
     Database dbCon = await db;
     return dbCon.rawUpdate(
         "UPDATE ${DbSql.tableExercises} SET 'closed' = ? WHERE id = ?",
         [closed, id]);
+  }
+
+  static Future<int> updateExerciseSeconds(String id, int seconds) async {
+    Database dbCon = await db;
+    return dbCon.rawUpdate(
+        "UPDATE ${DbSql.tableExercises} SET 'seconds' = ? WHERE id = ?",
+        [seconds, id]);
+  }
+
+  static Future<int> updateExerciseWeight(String id, double weight) async {
+    Database dbCon = await db;
+    return dbCon.rawUpdate(
+        "UPDATE ${DbSql.tableExercises} SET 'weight' = ? WHERE id = ?",
+        [weight, id]);
+  }
+
+  static Future<int> updateExerciseRepetitions(String id, int repetitions) async {
+    Database dbCon = await db;
+    return dbCon.rawUpdate(
+        "UPDATE ${DbSql.tableExercises} SET 'repetitions' = ? WHERE id = ?",
+        [repetitions, id]);
   }
 
   static Future<int> updatePlanTitle(String id, String title) async {

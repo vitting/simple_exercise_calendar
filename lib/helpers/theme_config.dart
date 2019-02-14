@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class ThemeConfig {
   static final Color floatingActionButtonBackgroundColor = Colors.deepOrange[700];
   static final Color rowBackgroundColor = Colors.cyan[700];
-  static final Color rowBackgroundColor2 = Colors.cyan[800].withOpacity(0.8); 
+  static final Color rowBackgroundColor2 = Colors.cyan[700].withOpacity(0.6); 
   static final Color rowTextColor = Colors.white;
+  static final Color rowTextColor2 = Colors.white.withOpacity(0.6);
   static final Color textColor = Colors.white;
   static final Color scaffoldBackgroundColor = Colors.blueGrey[700];
   static final Color defaultBackgroundColor = Colors.deepOrange[700];

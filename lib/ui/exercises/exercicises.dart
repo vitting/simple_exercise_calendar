@@ -19,7 +19,10 @@ class ExercisesMainState extends State<ExercisesMain> {
     return Scaffold(
         appBar: AppBar(
           actions: <Widget>[
-            Icon(Icons.view_list)
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Icon(Icons.view_list),
+            )
           ],
           title: Text("Planer"),
         ),
@@ -53,7 +56,7 @@ class ExercisesMainState extends State<ExercisesMain> {
               return Center(
                 child: NoData(
                   backgroundIcon: Icons.view_list,
-                  text: "Ingen planer fundet",
+                  text: "Ingen planer",
                   text2: "Opret en ny plan",
                   onIconTap: (_) {
                     addNewPlan(context);

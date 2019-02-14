@@ -91,17 +91,9 @@ class ExercisePlanData {
     return newExercisePlan;
   }
 
-  Future<ExerciseData> addExercise(String text, int index) async {
-    ExerciseData exercise =
-        ExerciseData(exercisePlanId: id, text: text, index: index);
-
-    int result = await exercise.save();
-
-    if (result == 0) {
-      exercise = null;
-    }
-
-    return exercise;
+  Future<void> addExercise(ExerciseData exercise) async {
+    exercise.exercisePlanId = id;
+    await exercise.save();
   }
 
   Future<EventData> addEvent(DateTime date) async {

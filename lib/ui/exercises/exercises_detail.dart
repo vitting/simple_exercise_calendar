@@ -7,6 +7,9 @@ import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/helpers/title_two_lines_widget.dart';
+import 'package:simple_exercise_calendar/ui/exercises/exercise_create.dart';
+import 'package:simple_exercise_calendar/ui/exercises/exercise_number_edit_dialog.dart';
+import 'package:simple_exercise_calendar/ui/exercises/exercise_sub_widget.dart';
 
 class ExercisesDetail extends StatefulWidget {
   final ExercisePlanData plan;
@@ -33,9 +36,6 @@ class ExercisesDetailState extends State<ExercisesDetail> {
     List<ExerciseData> list = await widget.plan.getExercises();
     setState(() {
       _list = list;
-      _list.forEach((v) {
-        print("${v.index} - ${v.text}");
-      });
     });
   }
 
@@ -63,13 +63,16 @@ class ExercisesDetailState extends State<ExercisesDetail> {
               )
             : null,
         appBar: AppBar(
-          actions: <Widget>[
-            Icon(MdiIcons.dumbbell)
-          ],
+            actions: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(MdiIcons.dumbbell),
+              )
+            ],
             title: TitleTwoLines(
-                line1: "Øvelser",
-                line2: "Plan: ${widget.plan.title}",
-              )),
+              line1: "Øvelser",
+              line2: "Plan: ${widget.plan.title}",
+            )),
         body: _createList());
   }
 
@@ -77,7 +80,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
     Widget value = Center(
       child: NoData(
           backgroundIcon: MdiIcons.dumbbell,
-          text: "Ingen øvelser fundet",
+          text: "Ingen øvelser",
           text2: widget.create ? "Opret en øvelse" : null),
     );
 
@@ -106,11 +109,13 @@ class ExercisesDetailState extends State<ExercisesDetail> {
   }
 
   void _addExerciseToPlan(BuildContext context) async {
-    String text = await showEditDialog(context, "Ny øvelse", "Øvelse", "");
+    ExerciseData exercise = await Navigator.of(context).push<ExerciseData>(
+        MaterialPageRoute(builder: (BuildContext context) => ExerciseCreate()));
 
-    if (text != null && text.isNotEmpty) {
-      ExerciseData data = await widget.plan.addExercise(text, _list.length);
-      _list.add(data);
+    if (exercise != null) {
+      exercise.index = _list.length;
+      await widget.plan.addExercise(exercise);
+      _list.add(exercise);
     }
   }
 
@@ -132,9 +137,50 @@ class ExercisesDetailState extends State<ExercisesDetail> {
           item.text,
           style: TextStyle(color: ThemeConfig.rowTextColor),
         ),
+        subtitle: ExerciseSub(
+          item: item,
+          editMode: true,
+          onTapSeconds: (_) async {
+            dynamic result = await showEditNumberDialog(context, "Sekunder",
+                item.seconds.toString(), ExerciseNumberEditDialogType.integer);
+            if (result != null) {
+              int value = int.tryParse(result);
+              if (value != null) {
+                await item.updateSeconds(value);
+                _getData();
+              }
+            }
+          },
+          onTapWeight: (_) async {
+            dynamic result = await showEditNumberDialog(context, "Vægt",
+                item.weight.toString(), ExerciseNumberEditDialogType.double);
+            if (result != null) {
+              double value = double.tryParse(result);
+              if (value != null) {
+                await item.updateWeight(value);
+                _getData();
+              }
+            }
+          },
+          onTapRepetitions: (_) async {
+            dynamic result = await showEditNumberDialog(
+                context,
+                "Gentagelser",
+                item.repetitions.toString(),
+                ExerciseNumberEditDialogType.integer);
+
+            if (result != null) {
+              int value = int.tryParse(result);
+              if (value != null) {
+                await item.updateRepetitions(int.tryParse(result));
+                _getData();
+              }
+            }
+          },
+        ),
         onTap: widget.create
             ? () {
-                _editExerciseText(item);
+                _editExercise(item);
               }
             : null,
         trailing: widget.create
@@ -205,7 +251,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
         await copy.save();
         _getData();
       } else if (result == 1) {
-        _editExerciseText(item);
+        _editExercise(item);
       } else if (result == 2) {
         bool delete =
             await showDeleteDialog(context, "Slet", "Slet denne øvelse?");
@@ -220,10 +266,15 @@ class ExercisesDetailState extends State<ExercisesDetail> {
     }
   }
 
-  void _editExerciseText(ExerciseData item) async {
-    String text = await showEditDialog(context, "Øvelse", "Øvelse", item.text);
-    if (text != null && text.isNotEmpty && (item.text != text)) {
-      await item.updateText(text);
+  Future<void> _editExercise(ExerciseData item) async {
+    ExerciseData exercise =
+        await Navigator.of(context).push<ExerciseData>(MaterialPageRoute(
+            builder: (BuildContext context) => ExerciseCreate(
+                  exercise: item,
+                )));
+
+    if (exercise != null) {
+      await exercise.update();
     }
   }
 }

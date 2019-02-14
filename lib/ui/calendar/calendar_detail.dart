@@ -7,6 +7,7 @@ import 'package:simple_exercise_calendar/helpers/exercise_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
+import 'package:simple_exercise_calendar/ui/exercises/exercise_sub_widget.dart';
 
 class CalendarDetail extends StatefulWidget {
   final EventData event;
@@ -107,10 +108,9 @@ class CalendarDetailState extends State<CalendarDetail> {
                     },
                     title: Text(item.text,
                         style: TextStyle(
-                            color: ThemeConfig.rowTextColor,
-                            fontWeight: item.closed
-                                ? FontWeight.bold
-                                : FontWeight.normal)),
+                            color: item.closed ? ThemeConfig.rowTextColor2 : ThemeConfig.rowTextColor,
+                            fontWeight: FontWeight.normal)),
+                    subtitle: ExerciseSub(item: item, editMode: false),
                   ),
                 );
               },

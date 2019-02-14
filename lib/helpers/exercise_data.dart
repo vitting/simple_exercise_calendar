@@ -6,14 +6,31 @@ class ExerciseData {
   String id;
   String exercisePlanId;
   String text;
+  String description;
+  double weight;
+  int seconds;
+  int repetitions;
   int index;
   bool closed;
 
-  ExerciseData({this.id, this.exercisePlanId, this.text, this.index = 0, this.closed = false});
+  ExerciseData(
+      {this.id,
+      this.exercisePlanId,
+      this.text,
+      this.description = "",
+      this.seconds = 0,
+      this.weight = 0.0,
+      this.repetitions = 0,
+      this.index = 0,
+      this.closed = false});
 
   Future<int> save() {
     id = id ?? SystemHelpers.generateUuid();
     return DbHelpers.insert(DbSql.tableExercises, this.toMap());
+  }
+
+  Future<int> update() {
+    return DbHelpers.update(DbSql.tableExercises, this.toMap(), "id = ?", [id]);
   }
 
   Future<int> saveCopy(String exercisePlanId) {
@@ -31,14 +48,24 @@ class ExerciseData {
     return DbHelpers.updateExerciseIndex(id, index);
   }
 
-  Future<int> updateText(String text) {
-    this.text = text;
-    return DbHelpers.updateExerciseText(id, text);
-  }
-
   Future<int> updateClosed(bool closed) {
     this.closed = closed;
     return DbHelpers.updateExerciseClosed(id, closed);
+  }
+
+  Future<int> updateSeconds(int seconds) {
+    this.seconds = seconds;
+    return DbHelpers.updateExerciseSeconds(id, seconds);
+  }
+
+  Future<int> updateWeight(double weight) {
+    this.weight = weight;
+    return DbHelpers.updateExerciseWeight(id, weight);
+  }
+
+  Future<int> updateRepetitions(int repetitions) {
+    this.repetitions = repetitions;
+    return DbHelpers.updateExerciseRepetitions(id, repetitions);
   }
 
   Map<String, dynamic> toMap() {
@@ -46,6 +73,10 @@ class ExerciseData {
       "id": id,
       "exercisePlanId": exercisePlanId,
       "text": text,
+      "description": description,
+      "seconds": seconds,
+      "weight": weight,
+      "repetitions": repetitions,
       "index": index,
       "closed": closed
     };
@@ -53,21 +84,27 @@ class ExerciseData {
 
   factory ExerciseData.fromMap(Map<String, dynamic> item) {
     return ExerciseData(
-      id: item["id"],
-      exercisePlanId: item["exercisePlanId"],
-      text: item["text"],
-      index: item["index"],
-      closed: item["closed"] == 1
-    );
+        id: item["id"],
+        exercisePlanId: item["exercisePlanId"],
+        text: item["text"],
+        description: item["description"],
+        seconds: item["seconds"],
+        weight: item["weight"],
+        repetitions: item["repetitions"],
+        index: item["index"],
+        closed: item["closed"] == 1);
   }
 
   factory ExerciseData.copy(ExerciseData item) {
     return ExerciseData(
-      id: SystemHelpers.generateUuid(),
-      exercisePlanId: item.exercisePlanId,
-      text: item.text,
-      closed: false,
-      index: item.index
-    );
+        id: SystemHelpers.generateUuid(),
+        exercisePlanId: item.exercisePlanId,
+        text: item.text,
+        description: item.description,
+        seconds: item.seconds,
+        weight: item.weight,
+        repetitions: item.repetitions,
+        closed: false,
+        index: item.index);
   }
 }

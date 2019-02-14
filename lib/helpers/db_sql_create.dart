@@ -10,8 +10,12 @@ class DbSql {
   static final String colType = "type";
   static final String colIndex = "index";
   static final String colClosed = "closed";
+  static final String colDescription = "description";
+  static final String colWeight = "weight";
+  static final String colSeconds = "seconds";
+  static final String colRepetitions = "repetitions";
   static final String createExercisePlans = "CREATE TABLE IF NOT EXISTS [$tableExercisePlans] ([$colId] TEXT(50) PRIMARY KEY NOT NULL UNIQUE, [$colTitle] TEXT(250) NOT NULL, [$colDate] INTEGER NOT NULL, [$colType] TEXT(10) NOT NULL, [$colClosed] INTEGER NOT NULL DEFAULT 0);";
-  static final String createExercises = "CREATE TABLE IF NOT EXISTS [$tableExercises] ([$colId] TEXT(50) PRIMARY KEY NOT NULL UNIQUE, [$colExercisePlanId] TEXT(50) NOT NULL, [$colText] TEXT(250) NOT NULL, [$colIndex] INTEGER NOT NULL DEFAULT 0, [$colClosed] INTEGER NOT NULL DEFAULT 0);";
+  static final String createExercises = "CREATE TABLE IF NOT EXISTS [$tableExercises] ([$colId] TEXT(50) PRIMARY KEY NOT NULL UNIQUE, [$colExercisePlanId] TEXT(50) NOT NULL, [$colText] TEXT(250) NOT NULL, [$colDescription] TEXT(2000) NOT NULL, [$colWeight] DOUBLE NOT NULL DEFAULT 0, [$colSeconds] INTEGER NOT NULL DEFAULT 0, [$colRepetitions] INTEGER NOT NULL DEFAULT 0, [$colIndex] INTEGER NOT NULL DEFAULT 0, [$colClosed] INTEGER NOT NULL DEFAULT 0);";
   static final String createEvents = "CREATE TABLE IF NOT EXISTS [$tableEvents] ([$colId] TEXT(50) PRIMARY KEY NOT NULL UNIQUE, [$colExercisePlanId] TEXT(50) NOT NULL, [$colDate] INTEGER NOT NULL);";
   static final String dropExercisePlans = "DROP TABLE IF EXISTS $tableExercisePlans;";
   static final String dropExercises = "DROP TABLE IF EXISTS $tableExercises;";

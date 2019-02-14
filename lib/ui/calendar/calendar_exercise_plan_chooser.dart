@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:simple_exercise_calendar/helpers/common_functions.dart';
 import 'package:simple_exercise_calendar/helpers/date_time_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/helpers/title_two_lines_widget.dart';
+import 'package:simple_exercise_calendar/ui/exercises/exercicises.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercises_detail.dart';
 
 class CalendarExercisePlanChooser extends StatelessWidget {
@@ -16,7 +16,12 @@ class CalendarExercisePlanChooser extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            actions: <Widget>[Icon(FontAwesomeIcons.heart)],
+            actions: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(FontAwesomeIcons.heart),
+              )
+            ],
             title: TitleTwoLines(
               line1: "Tilføj en plan til",
               line2: DateTimeHelpers.dDmmyyyy(date),
@@ -33,11 +38,12 @@ class CalendarExercisePlanChooser extends StatelessWidget {
               return Center(
                 child: NoData(
                   backgroundIcon: FontAwesomeIcons.heart,
-                  text: "Ingen planer fundet",
-                  text2: "Opret en ny plan",
-                  buttonIcon: Icons.add_circle_outline,
+                  text: "Ingen planer",
+                  text2: "Opret en plan",
+                  buttonIcon: Icons.view_list,
                   onIconTap: (_) {
-                    addNewPlan(context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => ExercisesMain()));
                   },
                 ),
               );

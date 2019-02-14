@@ -5,6 +5,7 @@ import 'package:simple_exercise_calendar/ui/home/home.dart';
 
 void main() => runApp(MainInherited(
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,

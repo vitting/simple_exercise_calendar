@@ -3,6 +3,7 @@ import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/exit_dialog.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercise_delete_dialog.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercise_edit_dialog.dart';
+import 'package:simple_exercise_calendar/ui/exercises/exercise_number_edit_dialog.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercises_detail.dart';
 
 Future<String> showEditDialog(
@@ -13,6 +14,18 @@ Future<String> showEditDialog(
             title: title,
             lable: lable,
             value: value,
+            autoFocus: autoFocus,
+          ));
+}
+
+Future<dynamic> showEditNumberDialog(
+    BuildContext context, String title, String value, ExerciseNumberEditDialogType type, [bool autoFocus = false]) async {
+  return showDialog<dynamic>(
+      context: context,
+      builder: (BuildContext dialogContext) => ExerciseNumberEditDialog(
+            title: title,
+            value: value,
+            type: type,
             autoFocus: autoFocus,
           ));
 }
