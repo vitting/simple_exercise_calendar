@@ -132,7 +132,8 @@ class ExerciseSub extends StatelessWidget {
                                 color: item.closed
                                     ? ThemeConfig.rowTextColor2
                                     : ThemeConfig.rowTextColor))
-                        : Text("${repetitionsDone.toString()}/${item.repetitions.toString()}",
+                        : Text(
+                            "${repetitionsDone.toString()}/${item.repetitions.toString()}",
                             style: TextStyle(
                                 color: item.closed
                                     ? ThemeConfig.rowTextColor2

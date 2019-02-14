@@ -35,7 +35,7 @@ class _CalendarDetailRowState extends State<CalendarDetailRow> {
           editMode: false,
           repetitionsDone: widget.item.repetitionsDone,
           onTapRepetitions: (bool value) {
-            ///true = Single tap | false = double tap
+            ///true = Single tap | false = longpress
             if (value) {
               if (widget.item.repetitions >= widget.item.repetitionsDone + 1) {
                 setState(() {
@@ -43,14 +43,12 @@ class _CalendarDetailRowState extends State<CalendarDetailRow> {
                 });
               }
             } else {
-              print(widget.item.repetitionsDone - 1 >= 0);
               if (widget.item.repetitionsDone - 1 <= widget.item.repetitions && widget.item.repetitionsDone - 1 >= 0) {
                 setState(() {
                   widget.item.updateRepetitionsDone(--widget.item.repetitionsDone);
                 });
               }
             }
-            
           },
         ),
       ),

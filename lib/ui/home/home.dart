@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:simple_exercise_calendar/helpers/db_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/ui/calendar/calendar.dart';
-import 'package:simple_exercise_calendar/ui/exercises/exercicises.dart';
+import 'package:simple_exercise_calendar/ui/exercises/exercicise_plan.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
         child: Icon(Icons.view_list, size: 30),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => ExercisesMain()));
+              builder: (BuildContext context) => ExercisePlanMain()));
         },
       ),
       body: CalendarMain()),

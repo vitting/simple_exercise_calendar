@@ -5,7 +5,7 @@ import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/helpers/title_two_lines_widget.dart';
-import 'package:simple_exercise_calendar/ui/exercises/exercicises.dart';
+import 'package:simple_exercise_calendar/ui/exercises/exercicise_plan.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercises_detail.dart';
 
 class CalendarExercisePlanChooser extends StatelessWidget {
@@ -43,7 +43,7 @@ class CalendarExercisePlanChooser extends StatelessWidget {
                   buttonIcon: Icons.view_list,
                   onIconTap: (_) {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => ExercisesMain()));
+                        builder: (BuildContext context) => ExercisePlanMain()));
                   },
                 ),
               );

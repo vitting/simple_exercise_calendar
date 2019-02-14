@@ -15,7 +15,9 @@ class DbHelpers {
   static Future<Database> get db async {
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath, dbName);
-    Sqflite.setDebugModeOn();
+
+    // Sqflite.setDebugModeOn();
+
     if (_db == null || !_db.isOpen) {
       try {
         await Directory(databasesPath).create(recursive: true);
@@ -51,10 +53,10 @@ class DbHelpers {
               print("ONOPEN");
               // await db.execute("${DbSql.dropExercisePlans}");
               // await db.execute("${DbSql.createExercisePlans}");
-              
+
               // await db.execute("${DbSql.dropExercises}");
               // await db.execute("${DbSql.createExercises}");
-              
+
               // await db.execute("${DbSql.dropEvents}");
               // await db.execute("${DbSql.createEvents}");
             } catch (error) {
@@ -125,49 +127,51 @@ class DbHelpers {
   static Future<int> updateExerciseIndex(String exerciseId, int index) async {
     Database dbCon = await db;
     return dbCon.rawUpdate(
-        "UPDATE ${DbSql.tableExercises} SET 'index' = ? WHERE id = ?",
+        "UPDATE ${DbSql.tableExercises} SET '${DbSql.colIndex}' = ? WHERE ${DbSql.colId} = ?",
         [index, exerciseId]);
   }
 
   static Future<int> updateExerciseClosed(String id, bool closed) async {
     Database dbCon = await db;
     return dbCon.rawUpdate(
-        "UPDATE ${DbSql.tableExercises} SET 'closed' = ? WHERE id = ?",
+        "UPDATE ${DbSql.tableExercises} SET '${DbSql.colClosed}' = ? WHERE ${DbSql.colId} = ?",
         [closed, id]);
   }
 
   static Future<int> updateExerciseSeconds(String id, int seconds) async {
     Database dbCon = await db;
     return dbCon.rawUpdate(
-        "UPDATE ${DbSql.tableExercises} SET 'seconds' = ? WHERE id = ?",
+        "UPDATE ${DbSql.tableExercises} SET '${DbSql.colSeconds}' = ? WHERE ${DbSql.colId} = ?",
         [seconds, id]);
   }
 
   static Future<int> updateExerciseWeight(String id, double weight) async {
     Database dbCon = await db;
     return dbCon.rawUpdate(
-        "UPDATE ${DbSql.tableExercises} SET 'weight' = ? WHERE id = ?",
+        "UPDATE ${DbSql.tableExercises} SET '${DbSql.colWeight}' = ? WHERE ${DbSql.colId} = ?",
         [weight, id]);
   }
 
-  static Future<int> updateExerciseRepetitions(String id, int repetitions) async {
+  static Future<int> updateExerciseRepetitions(
+      String id, int repetitions) async {
     Database dbCon = await db;
     return dbCon.rawUpdate(
-        "UPDATE ${DbSql.tableExercises} SET 'repetitions' = ? WHERE id = ?",
+        "UPDATE ${DbSql.tableExercises} SET '${DbSql.colRepetitions}' = ? WHERE ${DbSql.colId} = ?",
         [repetitions, id]);
   }
 
-  static Future<int> updateExerciseRepetitionsDone(String id, int repetitionsDone) async {
+  static Future<int> updateExerciseRepetitionsDone(
+      String id, int repetitionsDone) async {
     Database dbCon = await db;
     return dbCon.rawUpdate(
-        "UPDATE ${DbSql.tableExercises} SET 'repetitionsDone' = ? WHERE id = ?",
+        "UPDATE ${DbSql.tableExercises} SET '${DbSql.colRepetitionsDone}' = ? WHERE ${DbSql.colId} = ?",
         [repetitionsDone, id]);
   }
 
   static Future<int> updatePlanTitle(String id, String title) async {
     Database dbCon = await db;
     return dbCon.rawUpdate(
-        "UPDATE ${DbSql.tableExercisePlans} SET 'title' = ? WHERE id = ?",
+        "UPDATE ${DbSql.tableExercisePlans} SET '${DbSql.colTitle}' = ? WHERE ${DbSql.colId} = ?",
         [title, id]);
   }
 
@@ -175,7 +179,7 @@ class DbHelpers {
       int startDateInMilliseconds, int endDateInMilliseconds) async {
     Database dbCon = await db;
     return dbCon.rawQuery(
-        "SELECT * FROM ${DbSql.tableEvents} WHERE date BETWEEN ? and ?",
+        "SELECT * FROM ${DbSql.tableEvents} WHERE ${DbSql.colDate} BETWEEN ? and ?",
         [startDateInMilliseconds, endDateInMilliseconds]);
   }
 
@@ -183,7 +187,7 @@ class DbHelpers {
       String exerciseId) async {
     Database dbCon = await db;
     return dbCon.rawQuery(
-        "SELECT COUNT([id]) as total FROM ${DbSql.tableExercises} WHERE exercisePlanId = ?",
+        "SELECT COUNT([id]) as total FROM ${DbSql.tableExercises} WHERE ${DbSql.colExercisePlanId} = ?",
         [exerciseId]);
   }
 }

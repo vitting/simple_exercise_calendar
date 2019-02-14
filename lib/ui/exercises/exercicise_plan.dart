@@ -6,14 +6,14 @@ import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/ui/exercises/dot_counter_exercises.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercises_detail.dart';
 
-class ExercisesMain extends StatefulWidget {
+class ExercisePlanMain extends StatefulWidget {
   @override
-  ExercisesMainState createState() {
-    return new ExercisesMainState();
+  ExercisePlanMainState createState() {
+    return new ExercisePlanMainState();
   }
 }
 
-class ExercisesMainState extends State<ExercisesMain> {
+class ExercisePlanMainState extends State<ExercisePlanMain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
