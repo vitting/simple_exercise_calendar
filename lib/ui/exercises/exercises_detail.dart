@@ -5,6 +5,7 @@ import 'package:simple_exercise_calendar/helpers/common_functions.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
+import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/helpers/title_two_lines_widget.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercise_create.dart';
@@ -48,6 +49,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
                 backgroundColor:
                     ThemeConfig.floatingActionButtonBackgroundColor,
                 onPressed: () async {
+                  SystemHelpers.vibrate25();
                   _addExerciseToPlan(context);
                 },
                 child: Stack(
@@ -141,6 +143,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
           item: item,
           editMode: true,
           onTapSeconds: (_) async {
+            SystemHelpers.vibrate25();
             dynamic result = await showEditNumberDialog(context, "Sekunder",
                 item.seconds.toString(), ExerciseNumberEditDialogType.integer);
             if (result != null) {
@@ -152,6 +155,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
             }
           },
           onTapWeight: (_) async {
+            SystemHelpers.vibrate25();
             dynamic result = await showEditNumberDialog(context, "Vægt",
                 item.weight.toString(), ExerciseNumberEditDialogType.double);
             if (result != null) {
@@ -163,6 +167,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
             }
           },
           onTapRepetitions: (_) async {
+            SystemHelpers.vibrate25();
             dynamic result = await showEditNumberDialog(
                 context,
                 "Gentagelser",
@@ -180,6 +185,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
         ),
         onTap: widget.create
             ? () {
+                SystemHelpers.vibrate25();
                 _editExercise(item);
               }
             : null,
@@ -190,6 +196,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
                   color: ThemeConfig.rowTextColor,
                 ),
                 onPressed: () {
+                  SystemHelpers.vibrate25();
                   _showBottomMenu(item);
                 })
             : null,
@@ -214,6 +221,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
                         style:
                             TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
+                      SystemHelpers.vibrate25();
                       Navigator.of(sheetContext).pop(0);
                     }),
               ),
@@ -226,6 +234,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
                         style:
                             TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
+                      SystemHelpers.vibrate25();
                       Navigator.of(sheetContext).pop(1);
                     }),
               ),
@@ -238,6 +247,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
                         style:
                             TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
+                      SystemHelpers.vibrate25();
                       Navigator.of(sheetContext).pop(2);
                     }),
               )

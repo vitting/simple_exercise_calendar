@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_data.dart';
+import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercise_sub_widget.dart';
 
@@ -21,6 +22,7 @@ class _CalendarDetailRowState extends State<CalendarDetailRow> {
       child: CheckboxListTile(
         value: widget.item.closed,
         onChanged: (bool value) async {
+          SystemHelpers.vibrate25();
           await widget.item.updateClosed(value);
           setState(() {});
         },
@@ -36,6 +38,7 @@ class _CalendarDetailRowState extends State<CalendarDetailRow> {
           repetitionsDone: widget.item.repetitionsDone,
           onTapRepetitions: (bool value) {
             ///true = Single tap | false = longpress
+            SystemHelpers.vibrate25();
             if (value) {
               if (widget.item.repetitions >= widget.item.repetitionsDone + 1) {
                 setState(() {

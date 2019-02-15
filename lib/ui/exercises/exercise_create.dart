@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_data.dart';
 import 'package:simple_exercise_calendar/helpers/round_button_widget.dart';
+import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 
 class ExerciseCreate extends StatefulWidget {
@@ -111,6 +112,7 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
               text: "Gem",
               backgroundColor: ThemeConfig.defaultBackgroundColor,
               onPressed: () {
+                SystemHelpers.vibrate25();
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
                   Navigator.of(context).pop(_exercise);
@@ -128,6 +130,7 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
         IconButton(
           icon: Icon(Icons.remove, color: ThemeConfig.textColor),
           onPressed: () {
+            SystemHelpers.vibrate25();
             if (_weightController.text.trim().isNotEmpty) {
               double value = double.parse(_weightController.text);
               _weightController.text = (--value).toString();
@@ -187,6 +190,7 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
             color: ThemeConfig.textColor,
           ),
           onPressed: () {
+            SystemHelpers.vibrate25();
             if (_weightController.text.trim().isNotEmpty) {
               double value = double.parse(_weightController.text);
               _weightController.text = (++value).toString();
@@ -206,6 +210,7 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
         IconButton(
           icon: Icon(Icons.remove, color: ThemeConfig.textColor),
           onPressed: () {
+            SystemHelpers.vibrate25();
             if (_repeatController.text.trim().isNotEmpty) {
               int value = int.parse(_repeatController.text);
               _repeatController.text = (--value).toString();
@@ -265,6 +270,7 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
             color: ThemeConfig.textColor,
           ),
           onPressed: () {
+            SystemHelpers.vibrate25();
             if (_repeatController.text.trim().isNotEmpty) {
               int value = int.parse(_repeatController.text);
               _repeatController.text = (++value).toString();
@@ -284,6 +290,7 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
         IconButton(
           icon: Icon(Icons.remove, color: ThemeConfig.textColor),
           onPressed: () {
+            SystemHelpers.vibrate25();
             if (_timeController.text.trim().isNotEmpty) {
               int value = int.parse(_timeController.text);
               _timeController.text = (--value).toString();
@@ -343,6 +350,7 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
             color: ThemeConfig.textColor,
           ),
           onPressed: () {
+            SystemHelpers.vibrate25();
             if (_timeController.text.trim().isNotEmpty) {
               int value = int.parse(_timeController.text);
               _timeController.text = (++value).toString();

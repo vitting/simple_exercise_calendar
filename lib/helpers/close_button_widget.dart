@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 
 class CloseButtonWidget extends StatelessWidget {
   final Color color;
@@ -10,6 +11,7 @@ class CloseButtonWidget extends StatelessWidget {
     return IconButton(
       icon: Icon(Icons.close, color: color),
       onPressed: () {
+        SystemHelpers.vibrate25();
         Navigator.of(context).pop();
       },
     );

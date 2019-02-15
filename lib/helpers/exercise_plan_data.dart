@@ -105,7 +105,7 @@ class ExercisePlanData {
       await data.saveCopy(planCopy.id);
     });
 
-    EventData event = EventData.create(planCopy.id, date);
+    EventData event = EventData.create(planCopy.id, id, date);
     await event.save();
     return event;
   }

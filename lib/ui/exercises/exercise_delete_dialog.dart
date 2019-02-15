@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_exercise_calendar/helpers/close_button_widget.dart';
 import 'package:simple_exercise_calendar/helpers/round_button_widget.dart';
+import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 
 class ExerciseDeleteDialog extends StatelessWidget {
@@ -37,6 +38,7 @@ class ExerciseDeleteDialog extends StatelessWidget {
                   textColor: ThemeConfig.dialogTextColor,
                   text: "Ja",
                   onPressed: () {
+                    SystemHelpers.vibrate25();
                     Navigator.of(context).pop(true);
                   },
                 ),
@@ -45,6 +47,7 @@ class ExerciseDeleteDialog extends StatelessWidget {
                   textColor: ThemeConfig.dialogTextColor,
                   text: "Nej",
                   onPressed: () {
+                    SystemHelpers.vibrate25();
                     Navigator.of(context).pop(false);
                   },
                 )

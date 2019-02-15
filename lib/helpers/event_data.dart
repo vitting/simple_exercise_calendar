@@ -10,20 +10,84 @@ class EventData {
   String id;
   DateTime date;
   String exercisePlanId;
+  String templateExercisePlanId;
 
-  EventData({this.id, @required this.date, @required this.exercisePlanId});
+  EventData(
+      {this.id,
+      @required this.date,
+      @required this.exercisePlanId,
+      this.templateExercisePlanId});
 
   Map<String, dynamic> toMap() {
     return {
       "id": id,
       "date": date.millisecondsSinceEpoch,
-      "exercisePlanId": exercisePlanId
+      "exercisePlanId": exercisePlanId,
+      "templateExercisePlanId": templateExercisePlanId
     };
   }
 
   Future<int> deleteExercisePlan() async {
     await DbHelpers.deleteExercisesByExerciseplanId(exercisePlanId);
     return DbHelpers.deleteById(DbSql.tableExercisePlans, exercisePlanId);
+  }
+
+  Future<int> deleteExercises() async {
+    await DbHelpers.deleteExercisesByExerciseplanId(exercisePlanId);
+    return 0;
+  }
+
+  Future<int> updateExercises() async {
+    List<ExerciseData> exercises = await this.getTemplateExercises();
+    if (exercises.length != 0) {
+      await DbHelpers.deleteExercisesByExerciseplanId(exercisePlanId);
+      exercises.forEach((ExerciseData data) async {
+        await data.saveCopy(this.exercisePlanId);
+      });
+    }
+
+    return exercises.length;
+  }
+
+  Future<String> getEventPlanTitle() async {
+    String value;
+    List<Map<String, dynamic>> list = await DbHelpers.query(
+        DbSql.tableExercisePlans,
+        where: "id = ?",
+        whereArgs: [this.exercisePlanId]);
+
+    if (list.length != 0) {
+      Map<String, dynamic> item = list[0];
+      value = item["title"];
+    }
+
+    return value;
+  }
+
+  Future<String> getTemplatePlanTitle() async {
+    String value;
+    List<Map<String, dynamic>> list = await DbHelpers.query(
+        DbSql.tableExercisePlans,
+        where: "id = ?",
+        whereArgs: [this.templateExercisePlanId]);
+
+    if (list.length != 0) {
+      Map<String, dynamic> item = list[0];
+      value = item["title"];
+    }
+
+    return value;
+  }
+
+  Future<List<ExerciseData>> getTemplateExercises() async {
+    List<Map<String, dynamic>> list = await DbHelpers.query(
+        DbSql.tableExercises,
+        where: "exercisePlanId = ?",
+        whereArgs: [this.templateExercisePlanId],
+        orderBy: "[index]");
+    return list.map<ExerciseData>((Map<String, dynamic> item) {
+      return ExerciseData.fromMap(item);
+    }).toList();
   }
 
   Future<int> save() {
@@ -54,11 +118,11 @@ class EventData {
         DbSql.tableExercisePlans,
         where: "id = ?",
         whereArgs: [exercisePlanId]);
-    
+
     if (list.length != 0) {
       plan = ExercisePlanData.fromMap(list[0]);
     }
-    
+
     return plan;
   }
 
@@ -66,11 +130,16 @@ class EventData {
     return EventData(
         id: item["id"],
         date: DateTime.fromMillisecondsSinceEpoch(item["date"]),
-        exercisePlanId: item["exercisePlanId"]);
+        exercisePlanId: item["exercisePlanId"],
+        templateExercisePlanId: item["templateExercisePlanId"]);
   }
 
-  factory EventData.create(String exercisePlanId, DateTime date) {
-    return EventData(date: date, exercisePlanId: exercisePlanId);
+  factory EventData.create(
+      String exercisePlanId, String templateExercisePlanId, DateTime date) {
+    return EventData(
+        date: date,
+        exercisePlanId: exercisePlanId,
+        templateExercisePlanId: templateExercisePlanId);
   }
 
   static Future<List<EventData>> getEventsForMonth(DateTime date) async {

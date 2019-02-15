@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 import 'package:intl/intl_standalone.dart';
+import 'package:vibration/vibration.dart';
 
 class SystemHelpers {
   static void hideKeyboardWithNoFocus(BuildContext context) {
@@ -51,5 +52,21 @@ class SystemHelpers {
   static String generateUuid() {
     Uuid _uuid = new Uuid();
     return _uuid.v4().toString();
+  }
+
+  static Future<void> vibrate25() async {
+    if (await Vibration.hasVibrator()) {
+      await Vibration.vibrate(
+        duration: 25
+      );
+    }
+  }
+
+  static Future<void> vibrate100() async {
+    if (await Vibration.hasVibrator()) {
+      await Vibration.vibrate(
+        duration: 100
+      );
+    }
   }
 }

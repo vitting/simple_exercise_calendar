@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:simple_exercise_calendar/helpers/common_functions.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
+import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/ui/exercises/dot_counter_exercises.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercises_detail.dart';
@@ -41,6 +42,7 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
             ],
           ),
           onPressed: () {
+            SystemHelpers.vibrate25();
             addNewPlan(context);
           },
         ),
@@ -57,10 +59,7 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
                 child: NoData(
                   backgroundIcon: Icons.view_list,
                   text: "Ingen planer",
-                  text2: "Opret en ny plan",
-                  onIconTap: (_) {
-                    addNewPlan(context);
-                  },
+                  text2: "Opret en ny plan"
                 ),
               );
             }
@@ -84,6 +83,7 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
                       ],
                     ),
                     onTap: () {
+                      SystemHelpers.vibrate25();
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) => ExercisesDetail(
                                 plan: plan,
@@ -91,6 +91,7 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
                               )));
                     },
                     onLongPress: () {
+                      SystemHelpers.vibrate25();
                       _editPlanTitle(plan);
                     },
                     trailing: IconButton(
@@ -99,6 +100,7 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
                           Icons.more_vert,
                         ),
                         onPressed: () async {
+                          SystemHelpers.vibrate25();
                           _showBottomMenu(plan);
                         }),
                   ),
@@ -126,6 +128,7 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
                         style:
                             TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
+                      SystemHelpers.vibrate25();
                       Navigator.of(sheetContext).pop(0);
                     }),
               ),
@@ -138,6 +141,7 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
                         style:
                             TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
+                      SystemHelpers.vibrate25();
                       Navigator.of(sheetContext).pop(1);
                     }),
               ),
@@ -150,6 +154,7 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
                         style:
                             TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
+                      SystemHelpers.vibrate25();
                       Navigator.of(sheetContext).pop(2);
                     }),
               )

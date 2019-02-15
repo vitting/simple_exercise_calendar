@@ -4,6 +4,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/event_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
+import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/ui/calendar/calendar_detail.dart';
 import 'package:simple_exercise_calendar/ui/calendar/calendar_exercise_plan_chooser.dart';
@@ -38,6 +39,7 @@ class CalendarMainState extends State<CalendarMain> {
           _getEvents(date);
         },
         onDayPressed: (DateTime date, List<EventData> items) async {
+          SystemHelpers.vibrate25();
           if (items.length == 0) {
             ExercisePlanData exercisePlan = await Navigator.of(context).push(
                 MaterialPageRoute<ExercisePlanData>(

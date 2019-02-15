@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_exercise_calendar/helpers/close_button_widget.dart';
 import 'package:simple_exercise_calendar/helpers/round_button_widget.dart';
+import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 
 class ExerciseEditDialog extends StatefulWidget {
@@ -83,6 +84,7 @@ class ExerciseEditDialogState extends State<ExerciseEditDialog> {
                   backgroundColor: ThemeConfig.dialogButton1Color,
                   textColor: ThemeConfig.dialogTextColor,
                   onPressed: () {
+                    SystemHelpers.vibrate25();
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
                     }

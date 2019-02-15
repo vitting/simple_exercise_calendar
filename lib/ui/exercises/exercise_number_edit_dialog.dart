@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_exercise_calendar/helpers/close_button_widget.dart';
 import 'package:simple_exercise_calendar/helpers/round_button_widget.dart';
+import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 
 enum ExerciseNumberEditDialogType { integer, double }
@@ -72,6 +73,7 @@ class ExerciseNumberEditDialogState extends State<ExerciseNumberEditDialog> {
                   IconButton(
                     icon: Icon(Icons.remove, color: ThemeConfig.textColor),
                     onPressed: () {
+                      SystemHelpers.vibrate25();
                       setState(() {
                         if (widget.type ==
                             ExerciseNumberEditDialogType.integer) {
@@ -135,6 +137,7 @@ class ExerciseNumberEditDialogState extends State<ExerciseNumberEditDialog> {
                   IconButton(
                     icon: Icon(Icons.add, color: ThemeConfig.textColor),
                     onPressed: () {
+                      SystemHelpers.vibrate25();
                       setState(() {
                         if (widget.type ==
                             ExerciseNumberEditDialogType.integer) {
@@ -164,6 +167,7 @@ class ExerciseNumberEditDialogState extends State<ExerciseNumberEditDialog> {
                   backgroundColor: ThemeConfig.dialogButton1Color,
                   textColor: ThemeConfig.dialogTextColor,
                   onPressed: () {
+                    SystemHelpers.vibrate25();
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
                     }
