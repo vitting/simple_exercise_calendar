@@ -75,11 +75,8 @@ class ExercisePlanData {
       [String title = "", String type = "template"]) async {
     String newId = SystemHelpers.generateUuid();
     List<ExerciseData> exercises = await this.getExercises();
-    ExercisePlanData newExercisePlan =
-        ExercisePlanData(
-          id: newId, 
-          title: title.isEmpty ? this.title : title, 
-          type: type);
+    ExercisePlanData newExercisePlan = ExercisePlanData(
+        id: newId, title: title.isEmpty ? this.title : title, type: type);
 
     int result = await newExercisePlan.save();
     if (result != null && result != 0) {

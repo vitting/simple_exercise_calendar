@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
@@ -10,7 +11,7 @@ class DotCounterExercises extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: "Antal øvelser",
+      message: FlutterI18n.translate(context, 'DotCounterExercises.string1'),
       child: Stack(
         children: <Widget>[
           Container(

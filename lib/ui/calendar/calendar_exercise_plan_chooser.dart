@@ -5,7 +5,7 @@ import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/helpers/title_two_lines_widget.dart';
-import 'package:simple_exercise_calendar/ui/exercises/exercicise_plan.dart';
+import 'package:simple_exercise_calendar/ui/exercises/exercicise_plans.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercises_detail.dart';
 
 class CalendarExercisePlanChooser extends StatelessWidget {
@@ -24,7 +24,7 @@ class CalendarExercisePlanChooser extends StatelessWidget {
             ],
             title: TitleTwoLines(
               line1: "Tilføj en plan til",
-              line2: DateTimeHelpers.dDmmyyyy(date),
+              line2: DateTimeHelpers.dDmmyyyy(context, date),
             )),
         body: FutureBuilder(
           future: ExercisePlanData.getExercisePlans(),
@@ -43,7 +43,8 @@ class CalendarExercisePlanChooser extends StatelessWidget {
                   buttonIcon: Icons.view_list,
                   onIconTap: (_) {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => ExercisePlanMain()));
+                        builder: (BuildContext context) =>
+                            ExercisePlansMain()));
                   },
                 ),
               );

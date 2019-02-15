@@ -9,6 +9,7 @@ class CloseButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      tooltip: "Luk",
       icon: Icon(Icons.close, color: color),
       onPressed: () {
         SystemHelpers.vibrate25();

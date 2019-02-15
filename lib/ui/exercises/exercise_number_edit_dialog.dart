@@ -18,7 +18,7 @@ class ExerciseNumberEditDialog extends StatefulWidget {
       {Key key,
       this.title,
       this.value = 0,
-      this.buttonText = "Gem",
+      @required this.buttonText,
       @required this.type,
       this.autoFocus = false})
       : super(key: key);

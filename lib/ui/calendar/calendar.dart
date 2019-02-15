@@ -4,6 +4,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/event_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
+import 'package:simple_exercise_calendar/helpers/mainInherited_widget.dart';
 import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/ui/calendar/calendar_detail.dart';
@@ -78,8 +79,7 @@ class CalendarMainState extends State<CalendarMain> {
         },
         markedDateIconMaxShown: 1,
         markedDatesMap: _events,
-        locale: "da",
-        // locale: "en",
+        locale: MainInherited.of(context).languageCode,
       ),
     );
   }

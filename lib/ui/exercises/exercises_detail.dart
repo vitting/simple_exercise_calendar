@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_list_drag_and_drop/drag_and_drop_list.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/common_functions.dart';
@@ -72,8 +73,9 @@ class ExercisesDetailState extends State<ExercisesDetail> {
               )
             ],
             title: TitleTwoLines(
-              line1: "Øvelser",
-              line2: "Plan: ${widget.plan.title}",
+              line1: FlutterI18n.translate(context, 'ExercisesDetail.string1'),
+              line2:
+                  "${FlutterI18n.translate(context, 'ExercisesDetail.string2')}: ${widget.plan.title}",
             )),
         body: _createList());
   }
@@ -82,8 +84,10 @@ class ExercisesDetailState extends State<ExercisesDetail> {
     Widget value = Center(
       child: NoData(
           backgroundIcon: MdiIcons.dumbbell,
-          text: "Ingen øvelser",
-          text2: widget.create ? "Opret en øvelse" : null),
+          text: FlutterI18n.translate(context, 'ExercisesDetail.string3'),
+          text2: widget.create
+              ? FlutterI18n.translate(context, 'ExercisesDetail.string4')
+              : null),
     );
 
     if (_list.length == 0) return value;
@@ -144,8 +148,11 @@ class ExercisesDetailState extends State<ExercisesDetail> {
           editMode: true,
           onTapSeconds: (_) async {
             SystemHelpers.vibrate25();
-            dynamic result = await showEditNumberDialog(context, "Sekunder",
-                item.seconds.toString(), ExerciseNumberEditDialogType.integer);
+            dynamic result = await showEditNumberDialog(
+                context,
+                FlutterI18n.translate(context, 'ExercisesDetail.string5'),
+                item.seconds.toString(),
+                ExerciseNumberEditDialogType.integer);
             if (result != null) {
               int value = int.tryParse(result);
               if (value != null) {
@@ -156,8 +163,11 @@ class ExercisesDetailState extends State<ExercisesDetail> {
           },
           onTapWeight: (_) async {
             SystemHelpers.vibrate25();
-            dynamic result = await showEditNumberDialog(context, "Vægt",
-                item.weight.toString(), ExerciseNumberEditDialogType.double);
+            dynamic result = await showEditNumberDialog(
+                context,
+                FlutterI18n.translate(context, 'ExercisesDetail.string6'),
+                item.weight.toString(),
+                ExerciseNumberEditDialogType.double);
             if (result != null) {
               double value = double.tryParse(result);
               if (value != null) {
@@ -170,7 +180,7 @@ class ExercisesDetailState extends State<ExercisesDetail> {
             SystemHelpers.vibrate25();
             dynamic result = await showEditNumberDialog(
                 context,
-                "Gentagelser",
+                FlutterI18n.translate(context, 'ExercisesDetail.string7'),
                 item.repetitions.toString(),
                 ExerciseNumberEditDialogType.integer);
 
@@ -217,7 +227,9 @@ class ExercisesDetailState extends State<ExercisesDetail> {
                 child: ListTile(
                     leading: Icon(Icons.content_copy,
                         color: ThemeConfig.bottomSheetTextColor),
-                    title: Text("Kopier",
+                    title: Text(
+                        FlutterI18n.translate(
+                            context, 'ExercisesDetail.string8'),
                         style:
                             TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
@@ -230,7 +242,9 @@ class ExercisesDetailState extends State<ExercisesDetail> {
                 child: ListTile(
                     leading: Icon(Icons.edit,
                         color: ThemeConfig.bottomSheetTextColor),
-                    title: Text("Redigere",
+                    title: Text(
+                        FlutterI18n.translate(
+                            context, 'ExercisesDetail.string9'),
                         style:
                             TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
@@ -243,7 +257,9 @@ class ExercisesDetailState extends State<ExercisesDetail> {
                 child: ListTile(
                     leading: Icon(Icons.delete,
                         color: ThemeConfig.bottomSheetTextColor),
-                    title: Text("Slet",
+                    title: Text(
+                        FlutterI18n.translate(
+                            context, 'ExercisesDetail.string10'),
                         style:
                             TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
@@ -263,8 +279,10 @@ class ExercisesDetailState extends State<ExercisesDetail> {
       } else if (result == 1) {
         _editExercise(item);
       } else if (result == 2) {
-        bool delete =
-            await showDeleteDialog(context, "Slet", "Slet denne øvelse?");
+        bool delete = await showDeleteDialog(
+            context,
+            FlutterI18n.translate(context, 'ExercisesDetail.string11'),
+            FlutterI18n.translate(context, 'ExercisesDetail.string12'));
         if (delete != null && delete) {
           setState(() {
             _list.remove(item);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:simple_exercise_calendar/helpers/close_button_widget.dart';
 import 'package:simple_exercise_calendar/helpers/round_button_widget.dart';
 import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
@@ -67,10 +68,11 @@ class ExerciseEditDialogState extends State<ExerciseEditDialog> {
                             BorderSide(color: ThemeConfig.dialogTextColor)),
                     isDense: true,
                     labelText: widget.lable,
-                    labelStyle: TextStyle(color: ThemeConfig.dialogTextColor.withOpacity(0.8))),
+                    labelStyle: TextStyle(
+                        color: ThemeConfig.dialogTextColor.withOpacity(0.8))),
                 validator: (String value) {
                   if (value.trim().isEmpty) {
-                    return "Fill out ${widget.lable}";
+                    return "${FlutterI18n.translate(context, 'ExerciseEditDialog.string1')} ${widget.lable}";
                   }
                 },
                 onSaved: (String value) {

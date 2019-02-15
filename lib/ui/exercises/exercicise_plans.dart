@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:simple_exercise_calendar/helpers/common_functions.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
@@ -7,14 +8,14 @@ import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/ui/exercises/dot_counter_exercises.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercises_detail.dart';
 
-class ExercisePlanMain extends StatefulWidget {
+class ExercisePlansMain extends StatefulWidget {
   @override
-  ExercisePlanMainState createState() {
-    return new ExercisePlanMainState();
+  ExercisePlansMainState createState() {
+    return new ExercisePlansMainState();
   }
 }
 
-class ExercisePlanMainState extends State<ExercisePlanMain> {
+class ExercisePlansMainState extends State<ExercisePlansMain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,12 +26,13 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
               child: Icon(Icons.view_list),
             )
           ],
-          title: Text("Planer"),
+          title:
+              Text(FlutterI18n.translate(context, 'ExercisePlansMain.string1')),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
           backgroundColor: ThemeConfig.floatingActionButtonBackgroundColor,
-          tooltip: "Tilføj ny plan",
+          tooltip: FlutterI18n.translate(context, 'ExercisePlansMain.string2'),
           child: Stack(
             children: <Widget>[
               Center(
@@ -57,10 +59,11 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
             if (snapshot.hasData && snapshot.data.length == 0) {
               return Center(
                 child: NoData(
-                  backgroundIcon: Icons.view_list,
-                  text: "Ingen planer",
-                  text2: "Opret en ny plan"
-                ),
+                    backgroundIcon: Icons.view_list,
+                    text: FlutterI18n.translate(
+                        context, 'ExercisePlansMain.string3'),
+                    text2: FlutterI18n.translate(
+                        context, 'ExercisePlansMain.string4')),
               );
             }
 
@@ -124,7 +127,9 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
                 child: ListTile(
                     leading: Icon(Icons.content_copy,
                         color: ThemeConfig.bottomSheetTextColor),
-                    title: Text("Kopier",
+                    title: Text(
+                        FlutterI18n.translate(
+                            context, 'ExercisePlansMain.string5'),
                         style:
                             TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
@@ -137,7 +142,9 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
                 child: ListTile(
                     leading: Icon(Icons.edit,
                         color: ThemeConfig.bottomSheetTextColor),
-                    title: Text("Redigere",
+                    title: Text(
+                        FlutterI18n.translate(
+                            context, 'ExercisePlansMain.string6'),
                         style:
                             TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
@@ -150,7 +157,9 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
                 child: ListTile(
                     leading: Icon(Icons.delete,
                         color: ThemeConfig.bottomSheetTextColor),
-                    title: Text("Slet",
+                    title: Text(
+                        FlutterI18n.translate(
+                            context, 'ExercisePlansMain.string7'),
                         style:
                             TextStyle(color: ThemeConfig.bottomSheetTextColor)),
                     onTap: () {
@@ -165,14 +174,20 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
     if (result != null) {
       if (result == 0) {
         String title = await showEditDialog(
-            context, "Kopier plan", "Plan name", plan.title);
+            context,
+            FlutterI18n.translate(context, 'ExercisePlansMain.string8'),
+            FlutterI18n.translate(context, 'ExercisePlansMain.string9'),
+            plan.title);
         if (title != null && title.isNotEmpty) {
           await plan.saveCopyWithExercises(title);
         }
       } else if (result == 1) {
         _editPlanTitle(plan);
       } else if (result == 2) {
-        bool delete = await showDeleteDialog(context, "Slet", "Slet Planen?");
+        bool delete = await showDeleteDialog(
+            context,
+            FlutterI18n.translate(context, 'ExercisePlansMain.string10'),
+            FlutterI18n.translate(context, 'ExercisePlansMain.string11'));
         if (delete != null && delete) {
           await plan.delete();
         }
@@ -183,8 +198,11 @@ class ExercisePlanMainState extends State<ExercisePlanMain> {
   }
 
   void _editPlanTitle(ExercisePlanData plan) async {
-    String title =
-        await showEditDialog(context, "Edit Plan", "Plan name", plan.title);
+    String title = await showEditDialog(
+        context,
+        FlutterI18n.translate(context, 'ExercisePlansMain.string12'),
+        FlutterI18n.translate(context, 'ExercisePlansMain.string13'),
+        plan.title);
     if (title != null && title.isNotEmpty) {
       setState(() {
         plan.updateTitle(title);

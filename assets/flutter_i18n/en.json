@@ -1,2 +1,106 @@
 {
+    "DayNamesLong": {
+        "0": "Monday",
+        "1": "Tuesday",
+        "2": "Wednesday",
+        "3": "Thursday",
+        "4": "Friday",
+        "5": "Saturday",
+        "6": "Sunday"
+    },
+    "DayNamesShort": {
+        "0": "Mon.",
+        "1": "Tues.",
+        "2": "Wed.",
+        "3": "Thurs.",
+        "4": "Fri.",
+        "5": "Sat.",
+        "6": "Sun."
+    },
+    "Home": {
+        "string1": "Exercise Planner",
+        "string2": "Plans"
+    },
+    "DotCounterExercises": {
+        "string1": "Number of exercises"
+    },
+    "ExercisePlansMain": {
+        "string1": "Plans",
+        "string2": "Add new plan",
+        "string3": "No plans",
+        "string4": "Add new plan",
+        "string5": "Copy",
+        "string6": "Edit",
+        "string7": "Delete",
+        "string8": "Copy plan",
+        "string9": "Plan name",
+        "string10": "Delete",
+        "string11": "Delete plan?",
+        "string12": "Edit Plan",
+        "string13": "Plan name"
+    },
+    "ExerciseCreate": {
+        "string1": "Required field",
+        "string2": "Name of exercise *",
+        "string3": "Description",
+        "string4": "Save",
+        "string5": "Weight",
+        "string6": "Repetitions",
+        "string7": "Seconds"
+    },
+    "ExerciseDeleteDialog": {
+        "string1": "Yes",
+        "string2": "No"
+    },
+    "ExerciseEditDialog": {
+        "string1": "Fill out"
+    },
+    "ExerciseSub": {
+        "string1": "sec.",
+        "string2": "kg."
+    },
+    "ExercisesDetail": {
+        "string1": "Exercises",
+        "string2": "Plan",
+        "string3": "No Exercises",
+        "string4": "Add new exercise",
+        "string5": "Seconds",
+        "string6": "Weight",
+        "string7": "Repetitions",
+        "string8": "Copy",
+        "string9": "Edit",
+        "string10": "Delete",
+        "string11": "Delete",
+        "string12": "Delete this exercise?"
+    },
+    "CalendarDetail": {
+        "string1": "Plan",
+        "string2": "Date",
+        "string3": "Menu",
+        "string4": "Remove plan",
+        "string5": "Change plan",
+        "string6": "Update plan",
+        "string7": "No exercises found",
+        "string8": "Remove",
+        "string9": "Remove plan",
+        "string10": "Change plan",
+        "string11": "Are you sure you change the plan",
+        "string12": "with",
+        "string13": "Update plan",
+        "string14": "Will update the plan"
+    },
+    "CalendarExercisePlanChooser": {
+        "string1": "Add new plan to",
+        "string2": "No plans",
+        "string3": "Add new plan",
+        "string4": "Add plan to selected day"
+    },
+    "CloseButtonWidget": {
+        "string1": "Close"
+    },
+    "Common_Functions": {
+        "string1": "Add new plan",
+        "string2": "Name of plan",
+        "string3": "Save"
+    }
 }

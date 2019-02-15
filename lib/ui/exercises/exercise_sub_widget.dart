@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_data.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
@@ -58,7 +59,8 @@ class ExerciseSub extends StatelessWidget {
                               : ThemeConfig.rowSubTextColor,
                           size: 20),
                     ),
-                    Text("${item.seconds.toString()} sek",
+                    Text(
+                        "${item.seconds.toString()} ${FlutterI18n.translate(context, 'ExerciseSub.string1')}",
                         style: TextStyle(
                             color: item.closed
                                 ? ThemeConfig.rowTextColor2
@@ -88,7 +90,8 @@ class ExerciseSub extends StatelessWidget {
                               : ThemeConfig.rowSubTextColor,
                           size: 20),
                     ),
-                    Text("${item.weight.toString()} kg",
+                    Text(
+                        "${item.weight.toString()} ${FlutterI18n.translate(context, 'ExerciseSub.string2')}",
                         style: TextStyle(
                             color: item.closed
                                 ? ThemeConfig.rowTextColor2

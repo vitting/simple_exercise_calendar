@@ -7,12 +7,20 @@ class RoundButton extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
 
-  const RoundButton({Key key, @required this.text, this.onPressed, this.disabled = false, this.backgroundColor, this.textColor = Colors.white}) : super(key: key);
+  const RoundButton(
+      {Key key,
+      @required this.text,
+      this.onPressed,
+      this.disabled = false,
+      this.backgroundColor,
+      this.textColor = Colors.white})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
       child: Container(
-          child: Text(text,
+          child: Text(
+        text,
         style: TextStyle(color: textColor, fontSize: 18),
       )),
       onPressed: disabled ? null : onPressed,

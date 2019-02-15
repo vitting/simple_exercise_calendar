@@ -1,26 +1,24 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 // import 'package:flutter_i18n/flutter_i18n.dart';
 
-const List<String> dayNameLong = [
-  "Mandag",
-  "Tirsdag",
-  "Onsdag",
-  "Torsdag",
-  "Fredag",
-  "Lørdag",
-  "Søndag"
-];
+// const List<String> dayNameLong = [
+//   "Mandag",
+//   "Tirsdag",
+//   "Onsdag",
+//   "Torsdag",
+//   "Fredag",
+//   "Lørdag",
+//   "Søndag"
+// ];
 
 class DateTimeHelpers {
   static int weekInYear(DateTime date) {
     return int.parse(formatDate(date, [W]));
   }
 
-  
-  static int daysInMonth(int monthNum, int year)
-  {
-
+  static int daysInMonth(int monthNum, int year) {
     List<int> monthLength = new List(12);
 
     monthLength[0] = 31;
@@ -40,19 +38,16 @@ class DateTimeHelpers {
     else
       monthLength[1] = 28;
 
-    return monthLength[monthNum -1];
+    return monthLength[monthNum - 1];
   }
 
-  static bool leapYear(int year)
-  {
+  static bool leapYear(int year) {
     bool leapYear = false;
 
-    bool leap =  ((year % 100 == 0) && (year % 400 != 0));
+    bool leap = ((year % 100 == 0) && (year % 400 != 0));
     if (leap == true)
       leapYear = false;
-    else if (year % 4 == 0)
-      leapYear = true;
-
+    else if (year % 4 == 0) leapYear = true;
 
     return leapYear;
   }
@@ -70,8 +65,9 @@ class DateTimeHelpers {
     return formatDate(date, [dd, "-", mm, "-", yyyy]);
   }
 
-  static String dDmmyyyy(DateTime date) {
-    return formatDate(date, ["${dayNameLong[date.weekday -1]} ", dd, "-", mm, "-", yyyy]);
+  static String dDmmyyyy(BuildContext context, DateTime date) {
+    return formatDate(
+        date, ["${FlutterI18n.translate(context, 'DayNamesLong.${date.weekday - 1}')} ", dd, "-", mm, "-", yyyy]);
   }
 
   static String hhnn(dynamic date) {

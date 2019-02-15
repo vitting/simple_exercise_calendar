@@ -42,13 +42,16 @@ class _CalendarDetailRowState extends State<CalendarDetailRow> {
             if (value) {
               if (widget.item.repetitions >= widget.item.repetitionsDone + 1) {
                 setState(() {
-                  widget.item.updateRepetitionsDone(++widget.item.repetitionsDone);
+                  widget.item
+                      .updateRepetitionsDone(++widget.item.repetitionsDone);
                 });
               }
             } else {
-              if (widget.item.repetitionsDone - 1 <= widget.item.repetitions && widget.item.repetitionsDone - 1 >= 0) {
+              if (widget.item.repetitionsDone - 1 <= widget.item.repetitions &&
+                  widget.item.repetitionsDone - 1 >= 0) {
                 setState(() {
-                  widget.item.updateRepetitionsDone(--widget.item.repetitionsDone);
+                  widget.item
+                      .updateRepetitionsDone(--widget.item.repetitionsDone);
                 });
               }
             }

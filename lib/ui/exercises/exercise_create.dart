@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_data.dart';
 import 'package:simple_exercise_calendar/helpers/round_button_widget.dart';
@@ -61,7 +62,8 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
                     inputFormatters: [LengthLimitingTextInputFormatter(250)],
                     validator: (String value) {
                       if (value.trim().isEmpty) {
-                        return "Feltet skal udfyldes";
+                        return FlutterI18n.translate(
+                            context, 'ExerciseCreate.string1');
                       }
                     },
                     onSaved: (String value) {
@@ -76,7 +78,8 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide:
                                 BorderSide(color: ThemeConfig.textColor)),
-                        labelText: "Navn på øvelse *",
+                        labelText: FlutterI18n.translate(
+                            context, 'ExerciseCreate.string2'),
                         labelStyle: TextStyle(color: ThemeConfig.textColor)),
                   ),
                   TextFormField(
@@ -95,7 +98,8 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide:
                                 BorderSide(color: ThemeConfig.textColor)),
-                        labelText: "Beskrivelse af øvelse",
+                        labelText: FlutterI18n.translate(
+                            context, 'ExerciseCreate.string3'),
                         labelStyle: TextStyle(color: ThemeConfig.textColor)),
                   ),
                   SizedBox(height: 20),
@@ -109,7 +113,7 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
             ),
             SizedBox(height: 30),
             RoundButton(
-              text: "Gem",
+              text: FlutterI18n.translate(context, 'ExerciseCreate.string4'),
               backgroundColor: ThemeConfig.defaultBackgroundColor,
               onPressed: () {
                 SystemHelpers.vibrate25();
@@ -146,7 +150,7 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Vægt",
+                  Text(FlutterI18n.translate(context, 'ExerciseCreate.string5'),
                       style: TextStyle(
                           color: ThemeConfig.textColor, fontSize: 16)),
                   Padding(
@@ -226,7 +230,7 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Gentagelser",
+                  Text(FlutterI18n.translate(context, 'ExerciseCreate.string6'),
                       style: TextStyle(
                           color: ThemeConfig.textColor, fontSize: 16)),
                   Padding(
@@ -306,7 +310,7 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Sekunder",
+                  Text(FlutterI18n.translate(context, 'ExerciseCreate.string7'),
                       style: TextStyle(
                           color: ThemeConfig.textColor, fontSize: 16)),
                   Padding(

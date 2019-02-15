@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/common_functions.dart';
 import 'package:simple_exercise_calendar/helpers/date_time_helpers.dart';
@@ -41,17 +42,19 @@ class CalendarDetailState extends State<CalendarDetail> {
                     return Container();
                   }
 
-                  return Text("Plan: ${snapshot.data.title}",
+                  return Text(
+                      "${FlutterI18n.translate(context, 'CalendarDetail.string1')}: ${snapshot.data.title}",
                       style: TextStyle(fontSize: 16));
                 },
               ),
-              Text("Dato: ${DateTimeHelpers.dDmmyyyy(widget.event.date)}",
+              Text(
+                  "${FlutterI18n.translate(context, 'CalendarDetail.string2')}: ${DateTimeHelpers.dDmmyyyy(context, widget.event.date)}",
                   style: TextStyle(fontSize: 16)),
             ],
           ),
           actions: <Widget>[
             PopupMenuButton<int>(
-              tooltip: "Menu",
+              tooltip: FlutterI18n.translate(context, 'CalendarDetail.string3'),
               onSelected: (int value) async {
                 SystemHelpers.vibrate25();
                 _popupMenuAction(value);
@@ -63,21 +66,24 @@ class CalendarDetailState extends State<CalendarDetail> {
                       value: 0,
                       child: ListTile(
                         leading: Icon(Icons.delete),
-                        title: Text("Fjern plan"),
+                        title: Text(FlutterI18n.translate(
+                            context, 'CalendarDetail.string4')),
                       ),
                     ),
                     PopupMenuItem(
                       value: 1,
                       child: ListTile(
                         leading: Icon(Icons.view_list),
-                        title: Text("Skift plan"),
+                        title: Text(FlutterI18n.translate(
+                            context, 'CalendarDetail.string5')),
                       ),
                     ),
                     PopupMenuItem(
                       value: 2,
                       child: ListTile(
                         leading: Icon(Icons.update),
-                        title: Text("Opdater plan"),
+                        title: Text(FlutterI18n.translate(
+                            context, 'CalendarDetail.string6')),
                       ),
                     )
                   ],
@@ -96,7 +102,8 @@ class CalendarDetailState extends State<CalendarDetail> {
               return Center(
                 child: NoData(
                     backgroundIcon: FontAwesomeIcons.heart,
-                    text: "Ingen øvelser fundet"),
+                    text: FlutterI18n.translate(
+                        context, 'CalendarDetail.string7')),
               );
             }
 
@@ -130,7 +137,10 @@ class CalendarDetailState extends State<CalendarDetail> {
 
   void _removePlan() async {
     String currentPlanTitle = await widget.event.getEventPlanTitle();
-    bool delete = await showDeleteDialog(context, "Fjern", "Fjern planen:\n\n$currentPlanTitle");
+    bool delete = await showDeleteDialog(
+        context,
+        FlutterI18n.translate(context, 'CalendarDetail.string8'),
+        "${FlutterI18n.translate(context, 'CalendarDetail.string9')}:\n\n$currentPlanTitle");
     if (delete != null && delete) {
       await widget.event.deleteExercisePlan();
       await widget.event.delete();
@@ -147,7 +157,9 @@ class CalendarDetailState extends State<CalendarDetail> {
     if (exercisePlan != null) {
       String currentPlanTitle = await widget.event.getEventPlanTitle();
       bool change = await showDeleteDialog(
-          context, "Skift plan", "Er du sikker på du skifte planen:\n\n$currentPlanTitle\n\nmed\n\n${exercisePlan.title}");
+          context,
+          FlutterI18n.translate(context, 'CalendarDetail.string10'),
+          "${FlutterI18n.translate(context, 'CalendarDetail.string11')}:\n\n$currentPlanTitle\n\n${FlutterI18n.translate(context, 'CalendarDetail.string12')}\n\n${exercisePlan.title}");
       if (change != null && change) {
         await widget.event.deleteExercisePlan();
         await widget.event.delete();
@@ -159,8 +171,10 @@ class CalendarDetailState extends State<CalendarDetail> {
 
   void _updatePlan() async {
     String currentPlanTitle = await widget.event.getEventPlanTitle();
-    bool update = await showDeleteDialog(context, "Opdatere plan",
-        "Vil opdatere planen:\n\n$currentPlanTitle");
+    bool update = await showDeleteDialog(
+        context,
+        FlutterI18n.translate(context, 'CalendarDetail.string13'),
+        "${FlutterI18n.translate(context, 'CalendarDetail.string14')}:\n\n$currentPlanTitle");
     if (update != null && update) {
       await widget.event.updateExercises();
       setState(() {});

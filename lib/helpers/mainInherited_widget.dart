@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 
 class MainInherited extends StatefulWidget {
   final Widget child;
+  final String languageCode;
 
-  const MainInherited({Key key, this.child}) : super(key: key);
+  const MainInherited({Key key, this.child, this.languageCode})
+      : super(key: key);
   @override
   MainInheritedState createState() => new MainInheritedState();
 
@@ -22,7 +24,14 @@ class MainInherited extends StatefulWidget {
 class MainInheritedState extends State<MainInherited> {
   final StreamController<bool> _streamController =
       StreamController<bool>.broadcast();
-  bool canVibrate;
+  String languageCode;
+
+  @override
+  void initState() {
+    super.initState();
+
+    languageCode = widget.languageCode;
+  }
 
   @override
   void dispose() {

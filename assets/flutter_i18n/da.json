@@ -1,2 +1,106 @@
 {
+    "DayNamesLong": {
+        "0": "Mandag",
+        "1": "Tirsdag",
+        "2": "Onsdag",
+        "3": "Torsdag",
+        "4": "Fredag",
+        "5": "Lørdag",
+        "6": "Søndag"
+    },
+    "DayNamesShort": {
+        "0": "Man",
+        "1": "Tirs",
+        "2": "Ons",
+        "3": "Tors",
+        "4": "Fre",
+        "5": "Lør",
+        "6": "Søn"
+    },
+    "Home": {
+        "string1": "Øvelses planlægger",
+        "string2": "Dine planer"
+    },
+    "DotCounterExercises": {
+        "string1": "Antal øvelser"
+    },
+    "ExercisePlansMain": {
+        "string1": "Planer",
+        "string2": "Tilføj ny plan",
+        "string3": "Ingen planer",
+        "string4": "Opret en ny plan",
+        "string5": "Kopier",
+        "string6": "Redigere",
+        "string7": "Slet",
+        "string8": "Kopier plan",
+        "string9": "Navn på plan",
+        "string10": "Slet",
+        "string11": "Slet Planen?",
+        "string12": "Redigere plan",
+        "string13": "Navn på plan"
+    },
+    "ExerciseCreate": {
+        "string1": "Feltet skal udfyldes",
+        "string2": "Navn på øvelse *",
+        "string3": "Beskrivelse",
+        "string4": "Gem",
+        "string5": "Vægt",
+        "string6": "Gentagelser",
+        "string7": "Sekunder"
+    },
+    "ExerciseDeleteDialog": {
+        "string1": "Ja",
+        "string2": "Nej"
+    },
+    "ExerciseEditDialog": {
+        "string1": "Udfyld"
+    },
+    "ExerciseSub": {
+        "string1": "sek",
+        "string2": "kg"
+    },
+    "ExercisesDetail": {
+        "string1": "Øvelser",
+        "string2": "Plan",
+        "string3": "Ingen øvelser",
+        "string4": "Opret en øvelse",
+        "string5": "Sekunder",
+        "string6": "Vægt",
+        "string7": "Gentagelser",
+        "string8": "Kopier",
+        "string9": "Redigere",
+        "string10": "Slet",
+        "string11": "Slet",
+        "string12": "Slet denne øvelse?"
+    },
+    "CalendarDetail": {
+        "string1": "Plan",
+        "string2": "Dato",
+        "string3": "Menu",
+        "string4": "Fjern plan",
+        "string5": "Skift plan",
+        "string6": "Opdater plan",
+        "string7": "Ingen øvelser fundet",
+        "string8": "Fjern",
+        "string9": "Fjern planen",
+        "string10": "Skift plan",
+        "string11": "Er du sikker på du skifte planen",
+        "string12": "med",
+        "string13": "Opdatere plan",
+        "string14": "Vil opdatere planen"
+    },
+    "CalendarExercisePlanChooser": {
+        "string1": "Tilføj en plan til",
+        "string2": "Ingen planer",
+        "string3": "Opret en plan",
+        "string4": "Tilføj plan til dag"
+    },
+    "CloseButtonWidget": {
+        "string1": "Luk"
+    },
+    "Common_Functions": {
+        "string1": "Opret ny plan",
+        "string2": "Plan navn",
+        "string3": "Gem"
+    }
 }

@@ -27,12 +27,12 @@ class SystemHelpers {
     String value = "en";
     String systemLocale = await findSystemLocale();
     if (systemLocale != null) {
-      List<String> locale = systemLocale.split("_");  
+      List<String> locale = systemLocale.split("_");
       if (locale.length != 0) {
         value = locale[0];
       }
     }
-  
+
     return value;
   }
 
@@ -40,12 +40,12 @@ class SystemHelpers {
     String value = "US";
     String systemLocale = await findSystemLocale();
     if (systemLocale != null) {
-      List<String> locale = systemLocale.split("_");  
+      List<String> locale = systemLocale.split("_");
       if (locale.length != 0) {
         value = locale[1];
       }
     }
-  
+
     return value;
   }
 
@@ -56,17 +56,13 @@ class SystemHelpers {
 
   static Future<void> vibrate25() async {
     if (await Vibration.hasVibrator()) {
-      await Vibration.vibrate(
-        duration: 25
-      );
+      await Vibration.vibrate(duration: 25);
     }
   }
 
   static Future<void> vibrate100() async {
     if (await Vibration.hasVibrator()) {
-      await Vibration.vibrate(
-        duration: 100
-      );
+      await Vibration.vibrate(duration: 100);
     }
   }
 }
