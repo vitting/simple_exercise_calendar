@@ -17,6 +17,20 @@
         "5": "Lør",
         "6": "Søn"
     },
+    "MonthNamesShort": {
+        "0": "jan.",
+        "1": "feb.",
+        "2": "mar.",
+        "3": "apr.",
+        "4": "maj",
+        "5": "jun.",
+        "6": "jul.",
+        "7": "aug.",
+        "8": "sep.",
+        "9": "okt.",
+        "10": "nov.",
+        "11": "dec."
+    },
     "Home": {
         "string1": "Øvelses planlægger",
         "string2": "Dine planer"
@@ -87,7 +101,14 @@
         "string11": "Er du sikker på du skifte planen",
         "string12": "med",
         "string13": "Opdatere plan",
-        "string14": "Vil opdatere planen"
+        "string14": "Vil opdatere planen",
+        "string15": "Menu",
+        "string16": "Fjerner plane fra datoen",
+        "string17": "Udskift nuværende plan med en anden plan",
+        "string18": "Overskriv med øvelser fra den oprindelige plan",
+        "string19": "Gentagelser",
+        "string20": "Hvis du har gentagelser så tryk for at markere en gentagelse er udført (2/5)",
+        "string21": "Hold inde for at fjerne en gentagelse (1/5)"
     },
     "CalendarExercisePlanChooser": {
         "string1": "Tilføj en plan til",
@@ -102,5 +123,8 @@
         "string1": "Opret ny plan",
         "string2": "Plan navn",
         "string3": "Gem"
+    },
+    "HelpDialog": {
+        "string1": "Hjælp"
     }
 }

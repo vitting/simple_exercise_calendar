@@ -6,8 +6,10 @@ import 'package:simple_exercise_calendar/helpers/date_time_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/event_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
+import 'package:simple_exercise_calendar/helpers/help_dialog.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
 import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
+import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 import 'package:simple_exercise_calendar/ui/calendar/calendar_detail_row_widget.dart';
 import 'package:simple_exercise_calendar/ui/calendar/calendar_exercise_plan_chooser.dart';
 
@@ -47,46 +49,22 @@ class CalendarDetailState extends State<CalendarDetail> {
                       style: TextStyle(fontSize: 16));
                 },
               ),
-              Text(
-                  "${FlutterI18n.translate(context, 'CalendarDetail.string2')}: ${DateTimeHelpers.dDmmyyyy(context, widget.event.date)}",
+              Text("${DateTimeHelpers.dDLmMyyyy(context, widget.event.date)}",
                   style: TextStyle(fontSize: 16)),
             ],
           ),
           actions: <Widget>[
-            PopupMenuButton<int>(
-              tooltip: FlutterI18n.translate(context, 'CalendarDetail.string3'),
-              onSelected: (int value) async {
-                SystemHelpers.vibrate25();
-                _popupMenuAction(value);
+            IconButton(
+              icon: Icon(Icons.help),
+              onPressed: () {
+                _showHelp(context);
               },
-              offset: Offset(10, 50),
+            ),
+            IconButton(
               icon: Icon(Icons.more_vert),
-              itemBuilder: (BuildContext context) => [
-                    PopupMenuItem(
-                      value: 0,
-                      child: ListTile(
-                        leading: Icon(Icons.delete),
-                        title: Text(FlutterI18n.translate(
-                            context, 'CalendarDetail.string4')),
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 1,
-                      child: ListTile(
-                        leading: Icon(Icons.view_list),
-                        title: Text(FlutterI18n.translate(
-                            context, 'CalendarDetail.string5')),
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 2,
-                      child: ListTile(
-                        leading: Icon(Icons.update),
-                        title: Text(FlutterI18n.translate(
-                            context, 'CalendarDetail.string6')),
-                      ),
-                    )
-                  ],
+              onPressed: () {
+                _showBottomMenu();
+              },
             )
           ],
         ),
@@ -179,5 +157,212 @@ class CalendarDetailState extends State<CalendarDetail> {
       await widget.event.updateExercises();
       setState(() {});
     }
+  }
+
+  void _showBottomMenu() async {
+    int result = await showModalBottomSheet(
+      context: context,
+      builder: (BuildContext sheetContext) => Container(
+          color: ThemeConfig.bottomSheetBackgroundColor,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Card(
+                color: ThemeConfig.bottomSheetRowColor,
+                child: ListTile(
+                    leading: Icon(Icons.delete,
+                        color: ThemeConfig.bottomSheetTextColor),
+                    title: Text(
+                        FlutterI18n.translate(
+                            context, 'CalendarDetail.string4'),
+                        style:
+                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
+                    onTap: () {
+                      SystemHelpers.vibrate25();
+                      Navigator.of(sheetContext).pop(0);
+                    }),
+              ),
+              Card(
+                color: ThemeConfig.bottomSheetRowColor,
+                child: ListTile(
+                    leading: Icon(Icons.view_list,
+                        color: ThemeConfig.bottomSheetTextColor),
+                    title: Text(
+                        FlutterI18n.translate(
+                            context, 'CalendarDetail.string5'),
+                        style:
+                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
+                    onTap: () {
+                      SystemHelpers.vibrate25();
+                      Navigator.of(sheetContext).pop(1);
+                    }),
+              ),
+              Card(
+                color: ThemeConfig.bottomSheetRowColor,
+                child: ListTile(
+                    leading: Icon(Icons.update,
+                        color: ThemeConfig.bottomSheetTextColor),
+                    title: Text(
+                        FlutterI18n.translate(
+                            context, 'CalendarDetail.string6'),
+                        style:
+                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
+                    onTap: () {
+                      SystemHelpers.vibrate25();
+                      Navigator.of(sheetContext).pop(2);
+                    }),
+              )
+            ],
+          )),
+    );
+
+    if (result != null) {
+      SystemHelpers.vibrate25();
+      _popupMenuAction(result);
+    }
+  }
+
+  void _showHelp(BuildContext context) async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) => HelpDialog(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.more_vert, color: ThemeConfig.dialogTextColor),
+                    Text(
+                        FlutterI18n.translate(
+                            context, 'CalendarDetail.string15'),
+                        style: TextStyle(
+                            color: ThemeConfig.dialogTextColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold))
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Icon(Icons.delete,
+                              color: ThemeConfig.dialogTextColor, size: 18),
+                          Padding(
+                            padding: EdgeInsets.only(left: 5),
+                          ),
+                          Text(
+                              FlutterI18n.translate(
+                                  context, 'CalendarDetail.string4'),
+                              style: TextStyle(
+                                  color: ThemeConfig.dialogTextColor,
+                                  fontSize: 18))
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 25),
+                        child: Text(
+                            FlutterI18n.translate(
+                                context, 'CalendarDetail.string16'),
+                            style: TextStyle(
+                                color: ThemeConfig.dialogTextColor,
+                                fontSize: 16)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 10),
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Icon(Icons.view_list,
+                              color: ThemeConfig.dialogTextColor, size: 18),
+                          Padding(
+                            padding: EdgeInsets.only(left: 5),
+                          ),
+                          Text(
+                              FlutterI18n.translate(
+                                  context, 'CalendarDetail.string5'),
+                              style: TextStyle(
+                                  color: ThemeConfig.dialogTextColor,
+                                  fontSize: 18))
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 25),
+                        child: Text(
+                            FlutterI18n.translate(
+                                context, 'CalendarDetail.string17'),
+                            style: TextStyle(
+                                color: ThemeConfig.dialogTextColor,
+                                fontSize: 16)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 10),
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Icon(Icons.update,
+                              color: ThemeConfig.dialogTextColor, size: 18),
+                          Padding(
+                            padding: EdgeInsets.only(left: 5),
+                          ),
+                          Text(
+                              FlutterI18n.translate(
+                                  context, 'CalendarDetail.string6'),
+                              style: TextStyle(
+                                  color: ThemeConfig.dialogTextColor,
+                                  fontSize: 18))
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 25),
+                        child: Text(
+                            FlutterI18n.translate(
+                                context, 'CalendarDetail.string18'),
+                            style: TextStyle(
+                                color: ThemeConfig.dialogTextColor,
+                                fontSize: 16)),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                ),
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.repeat, color: ThemeConfig.dialogTextColor),
+                    Text(
+                        FlutterI18n.translate(
+                            context, 'CalendarDetail.string19'),
+                        style: TextStyle(
+                            color: ThemeConfig.dialogTextColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold))
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                          FlutterI18n.translate(
+                              context, 'CalendarDetail.string20'),
+                          style: TextStyle(
+                              color: ThemeConfig.dialogTextColor,
+                              fontSize: 16)),
+                      Padding(
+                        padding: EdgeInsets.only(top: 20),
+                      ),
+                      Text(
+                          FlutterI18n.translate(
+                              context, 'CalendarDetail.string21'),
+                          style: TextStyle(
+                              color: ThemeConfig.dialogTextColor, fontSize: 16))
+                    ],
+                  ),
+                )
+              ],
+            ));
   }
 }

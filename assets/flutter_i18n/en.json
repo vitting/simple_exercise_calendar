@@ -17,6 +17,20 @@
         "5": "Sat.",
         "6": "Sun."
     },
+    "MonthNamesShort": {
+        "0": "Jan.",
+        "1": "Feb.",
+        "2": "Mar.",
+        "3": "Apr.",
+        "4": "May.",
+        "5": "June",
+        "6": "July",
+        "7": "Aug.",
+        "8": "Sept.",
+        "9": "Oct.",
+        "10": "Nov.",
+        "11": "Dec."
+    },
     "Home": {
         "string1": "Exercise Planner",
         "string2": "Plans"
@@ -87,7 +101,14 @@
         "string11": "Are you sure you change the plan",
         "string12": "with",
         "string13": "Update plan",
-        "string14": "Will update the plan"
+        "string14": "Will update the plan",
+        "string15": "Menu",
+        "string16": "Remove this plan from the date",
+        "string17": "Replace current plan with another plan",
+        "string18": "Overskriv med øvelser fra den oprindelige plan",
+        "string19": "Repetitions",
+        "string20": "If you have repetitions then tap to mark a repetition is done (2/5)",
+        "string21": "Hold to remove a repetition (1/5)"
     },
     "CalendarExercisePlanChooser": {
         "string1": "Add new plan to",
@@ -102,5 +123,8 @@
         "string1": "Add new plan",
         "string2": "Name of plan",
         "string3": "Save"
+    },
+    "HelpDialog": {
+        "string1": "Help"
     }
 }

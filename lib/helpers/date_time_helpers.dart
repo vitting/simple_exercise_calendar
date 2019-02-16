@@ -65,9 +65,19 @@ class DateTimeHelpers {
     return formatDate(date, [dd, "-", mm, "-", yyyy]);
   }
 
-  static String dDmmyyyy(BuildContext context, DateTime date) {
+  static String dDLmmyyyy(BuildContext context, DateTime date) {
     return formatDate(
         date, ["${FlutterI18n.translate(context, 'DayNamesLong.${date.weekday - 1}')} ", dd, "-", mm, "-", yyyy]);
+  }
+
+  static String dDLmMyyyy(BuildContext context, DateTime date) {
+    return formatDate(
+        date, ["${FlutterI18n.translate(context, 'DayNamesLong.${date.weekday - 1}')} ", dd, ". ", "${FlutterI18n.translate(context, 'MonthNamesShort.${date.month - 1}')}", " ", yyyy]);
+  }
+
+  static String dDSmmyyyy(BuildContext context, DateTime date) {
+    return formatDate(
+        date, ["${FlutterI18n.translate(context, 'DayNamesShort.${date.weekday - 1}')} ", dd, "-", mm, "-", yyyy]);
   }
 
   static String hhnn(dynamic date) {

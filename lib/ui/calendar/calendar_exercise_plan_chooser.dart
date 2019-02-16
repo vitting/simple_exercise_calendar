@@ -24,7 +24,7 @@ class CalendarExercisePlanChooser extends StatelessWidget {
             ],
             title: TitleTwoLines(
               line1: "Tilføj en plan til",
-              line2: DateTimeHelpers.dDmmyyyy(context, date),
+              line2: DateTimeHelpers.dDLmMyyyy(context, date),
             )),
         body: FutureBuilder(
           future: ExercisePlanData.getExercisePlans(),
