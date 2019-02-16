@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:simple_exercise_calendar/helpers/bottom_menu_row_widget.dart';
 import 'package:simple_exercise_calendar/helpers/common_functions.dart';
 import 'package:simple_exercise_calendar/helpers/date_time_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/event_data.dart';
@@ -167,50 +168,20 @@ class CalendarDetailState extends State<CalendarDetail> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Card(
-                color: ThemeConfig.bottomSheetRowColor,
-                child: ListTile(
-                    leading: Icon(Icons.delete,
-                        color: ThemeConfig.bottomSheetTextColor),
-                    title: Text(
-                        FlutterI18n.translate(
-                            context, 'CalendarDetail.string4'),
-                        style:
-                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
-                    onTap: () {
-                      SystemHelpers.vibrate25();
-                      Navigator.of(sheetContext).pop(0);
-                    }),
+              BottomMenuRow(
+                icon: Icons.delete,
+                text: FlutterI18n.translate(context, 'CalendarDetail.string4'),
+                value: 0,
               ),
-              Card(
-                color: ThemeConfig.bottomSheetRowColor,
-                child: ListTile(
-                    leading: Icon(Icons.view_list,
-                        color: ThemeConfig.bottomSheetTextColor),
-                    title: Text(
-                        FlutterI18n.translate(
-                            context, 'CalendarDetail.string5'),
-                        style:
-                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
-                    onTap: () {
-                      SystemHelpers.vibrate25();
-                      Navigator.of(sheetContext).pop(1);
-                    }),
+              BottomMenuRow(
+                icon: Icons.view_list,
+                text: FlutterI18n.translate(context, 'CalendarDetail.string5'),
+                value: 1,
               ),
-              Card(
-                color: ThemeConfig.bottomSheetRowColor,
-                child: ListTile(
-                    leading: Icon(Icons.update,
-                        color: ThemeConfig.bottomSheetTextColor),
-                    title: Text(
-                        FlutterI18n.translate(
-                            context, 'CalendarDetail.string6'),
-                        style:
-                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
-                    onTap: () {
-                      SystemHelpers.vibrate25();
-                      Navigator.of(sheetContext).pop(2);
-                    }),
+              BottomMenuRow(
+                icon: Icons.update,
+                text: FlutterI18n.translate(context, 'CalendarDetail.string6'),
+                value: 2,
               )
             ],
           )),

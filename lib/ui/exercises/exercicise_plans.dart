@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:simple_exercise_calendar/helpers/bottom_menu_row_widget.dart';
 import 'package:simple_exercise_calendar/helpers/common_functions.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/helpers/no_data_widget.dart';
 import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
-import 'package:simple_exercise_calendar/ui/exercises/dot_counter_exercises.dart';
+import 'package:simple_exercise_calendar/helpers/dot_counter_exercises.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercises_detail.dart';
 
 class ExercisePlansMain extends StatefulWidget {
@@ -122,51 +123,21 @@ class ExercisePlansMainState extends State<ExercisePlansMain> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Card(
-                color: ThemeConfig.bottomSheetRowColor,
-                child: ListTile(
-                    leading: Icon(Icons.content_copy,
-                        color: ThemeConfig.bottomSheetTextColor),
-                    title: Text(
-                        FlutterI18n.translate(
-                            context, 'ExercisePlansMain.string5'),
-                        style:
-                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
-                    onTap: () {
-                      SystemHelpers.vibrate25();
-                      Navigator.of(sheetContext).pop(0);
-                    }),
+              BottomMenuRow(
+                icon: Icons.content_copy,
+                text: FlutterI18n.translate(context, 'ExercisePlansMain.string5'),
+                value: 0
               ),
-              Card(
-                color: ThemeConfig.bottomSheetRowColor,
-                child: ListTile(
-                    leading: Icon(Icons.edit,
-                        color: ThemeConfig.bottomSheetTextColor),
-                    title: Text(
-                        FlutterI18n.translate(
-                            context, 'ExercisePlansMain.string6'),
-                        style:
-                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
-                    onTap: () {
-                      SystemHelpers.vibrate25();
-                      Navigator.of(sheetContext).pop(1);
-                    }),
+              BottomMenuRow(
+                icon: Icons.edit,
+                text: FlutterI18n.translate(context, 'ExercisePlansMain.string6'),
+                value: 1
               ),
-              Card(
-                color: ThemeConfig.bottomSheetRowColor,
-                child: ListTile(
-                    leading: Icon(Icons.delete,
-                        color: ThemeConfig.bottomSheetTextColor),
-                    title: Text(
-                        FlutterI18n.translate(
-                            context, 'ExercisePlansMain.string7'),
-                        style:
-                            TextStyle(color: ThemeConfig.bottomSheetTextColor)),
-                    onTap: () {
-                      SystemHelpers.vibrate25();
-                      Navigator.of(sheetContext).pop(2);
-                    }),
-              )
+              BottomMenuRow(
+                icon: Icons.delete,
+                text: FlutterI18n.translate(context, 'ExercisePlansMain.string7'),
+                value: 2
+              ),
             ],
           )),
     );

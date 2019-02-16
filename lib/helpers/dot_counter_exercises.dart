@@ -24,7 +24,7 @@ class DotCounterExercises extends StatelessWidget {
                   Center(
                       child: Icon(
                     MdiIcons.dumbbell,
-                    color: Colors.cyan[700],
+                    color: Colors.cyan[600],
                   )),
                   FutureBuilder(
                     future: plan.getExercisesCount(),
