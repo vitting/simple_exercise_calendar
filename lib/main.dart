@@ -19,7 +19,6 @@ void main() async {
       languageCode: languageCode,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Exercise planner',
         localizationsDelegates: [
           FlutterI18nDelegate(false, "en.json"),
           GlobalMaterialLocalizations.delegate,
