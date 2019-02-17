@@ -5,7 +5,8 @@
          flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- TODO: Enable internet before development -->
+    <!-- <uses-permission android:name="android.permission.INTERNET"/> -->
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -14,7 +15,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="simple_exercise_calendar"
+        android:label="Simple Workout Planner"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
