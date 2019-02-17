@@ -65,4 +65,18 @@ class SystemHelpers {
       await Vibration.vibrate(duration: 100);
     }
   }
+
+  static void setScreenOrientationPortrait() async {
+    await SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  }
+
+  static void setScreenOrientationLandscape() async {
+    await SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+  }
+
+  static void setScreenOrientationDefault() async {
+    await SystemChrome.setPreferredOrientations([]);
+  }
 }

@@ -20,6 +20,7 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
   final TextEditingController _timeController = TextEditingController();
   final TextEditingController _weightController = TextEditingController();
   final TextEditingController _repeatController = TextEditingController();
+  String _title;
   ExerciseData _exercise;
 
   @override
@@ -39,6 +40,17 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (widget.exercise == null) {
+      _title = FlutterI18n.translate(context, 'ExerciseCreate.string8');
+    } else {
+      _title = FlutterI18n.translate(context, 'ExerciseCreate.string9');
+    }
+  }
+
+  @override
   void dispose() {
     super.dispose();
     _timeController.dispose();
@@ -49,7 +61,9 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text(_title),
+        ),
         body: ListView(
           padding: EdgeInsets.all(10),
           children: <Widget>[

@@ -60,7 +60,9 @@
         "string4": "Gem",
         "string5": "Vægt",
         "string6": "Gentagelser",
-        "string7": "Sekunder"
+        "string7": "Sekunder",
+        "string8": "Opret øvelse",
+        "string9": "Redigere øvelse"
     },
     "ExerciseDeleteDialog": {
         "string1": "Ja",

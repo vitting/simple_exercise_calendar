@@ -60,7 +60,9 @@
         "string4": "Save",
         "string5": "Weight",
         "string6": "Repetitions",
-        "string7": "Seconds"
+        "string7": "Seconds",
+        "string8": "Create exercise",
+        "string9": "Edit exercise"
     },
     "ExerciseDeleteDialog": {
         "string1": "Yes",

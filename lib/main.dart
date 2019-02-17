@@ -13,6 +13,8 @@ void main() async {
     languageCode = "en";
   }
 
+  SystemHelpers.setScreenOrientationPortrait();
+
   return runApp(MainInherited(
       languageCode: languageCode,
       child: MaterialApp(
