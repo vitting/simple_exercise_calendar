@@ -98,7 +98,7 @@ class _ExerciseCreateState extends State<ExerciseCreate> {
                   ),
                   TextFormField(
                     initialValue: _exercise.description,
-                    inputFormatters: [LengthLimitingTextInputFormatter(2000)],
+                    inputFormatters: [LengthLimitingTextInputFormatter(5000)],
                     onSaved: (String value) {
                       _exercise.description = value.trim();
                     },
