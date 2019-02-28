@@ -4,7 +4,9 @@ import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 
 class ExerciseData {
   String id;
+  String orgExerciseId;
   String exercisePlanId;
+  String orgExercisePlanId;
   String text;
   String description;
   double weight;
@@ -16,7 +18,9 @@ class ExerciseData {
 
   ExerciseData(
       {this.id,
+      this.orgExerciseId,
       this.exercisePlanId,
+      this.orgExercisePlanId,
       this.text,
       this.description = "",
       this.seconds = 0,
@@ -28,6 +32,8 @@ class ExerciseData {
 
   Future<int> save() {
     id = id ?? SystemHelpers.generateUuid();
+    orgExerciseId = orgExerciseId ?? id;
+    orgExercisePlanId = orgExercisePlanId ?? exercisePlanId;
     return DbHelpers.insert(DbSql.tableExercises, this.toMap());
   }
 
@@ -78,7 +84,9 @@ class ExerciseData {
   Map<String, dynamic> toMap() {
     return {
       "id": id,
+      "orgExerciseId": orgExerciseId,
       "exercisePlanId": exercisePlanId,
+      "orgExercisePlanId": orgExercisePlanId,
       "text": text,
       "description": description,
       "seconds": seconds,
@@ -93,7 +101,9 @@ class ExerciseData {
   factory ExerciseData.fromMap(Map<String, dynamic> item) {
     return ExerciseData(
         id: item["id"],
+        orgExerciseId: item["orgExerciseId"],
         exercisePlanId: item["exercisePlanId"],
+        orgExercisePlanId: item["orgExercisePlanId"],
         text: item["text"],
         description: item["description"],
         seconds: item["seconds"],
@@ -107,7 +117,9 @@ class ExerciseData {
   factory ExerciseData.copy(ExerciseData item) {
     return ExerciseData(
         id: SystemHelpers.generateUuid(),
+        orgExerciseId: item.orgExerciseId,
         exercisePlanId: item.exercisePlanId,
+        orgExercisePlanId: item.orgExercisePlanId,
         text: item.text,
         description: item.description,
         seconds: item.seconds,

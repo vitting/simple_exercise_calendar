@@ -54,16 +54,8 @@ class ExercisesDetailState extends State<ExercisesDetail> {
                   SystemHelpers.vibrate25();
                   _addExerciseToPlan(context);
                 },
-                child: Stack(
-                  children: <Widget>[
-                    Center(
-                        child: Icon(Icons.add,
-                            size: 40, color: ThemeConfig.textColor)),
-                    Center(
-                        child: Icon(MdiIcons.dumbbell,
-                            size: 40, color: ThemeConfig.iconSecondLayerColor)),
-                  ],
-                ),
+                child: Icon(Icons.add,
+                            size: 40, color: ThemeConfig.textColor),
               )
             : null,
         appBar: AppBar(

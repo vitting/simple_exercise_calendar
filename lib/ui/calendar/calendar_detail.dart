@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:simple_exercise_calendar/helpers/bottom_menu_row_widget.dart';
 import 'package:simple_exercise_calendar/helpers/common_functions.dart';
 import 'package:simple_exercise_calendar/helpers/date_time_helpers.dart';
+import 'package:simple_exercise_calendar/helpers/db_helpers.dart';
+import 'package:simple_exercise_calendar/helpers/db_sql_create.dart';
 import 'package:simple_exercise_calendar/helpers/event_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_data.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
@@ -57,8 +59,10 @@ class CalendarDetailState extends State<CalendarDetail> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.help),
-              onPressed: () {
-                _showHelp(context);
+              onPressed: () async {
+                List<Map<String, dynamic>> list = await DbHelpers.query(DbSql.tableExercises);
+                print(list);
+                // _showHelp(context);
               },
             ),
             IconButton(

@@ -34,16 +34,7 @@ class ExercisePlansMainState extends State<ExercisePlansMain> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: ThemeConfig.floatingActionButtonBackgroundColor,
           tooltip: FlutterI18n.translate(context, 'ExercisePlansMain.string2'),
-          child: Stack(
-            children: <Widget>[
-              Center(
-                  child:
-                      Icon(Icons.add, size: 40, color: ThemeConfig.textColor)),
-              Center(
-                  child:
-                      Icon(Icons.view_list, size: 40, color: Colors.white54)),
-            ],
-          ),
+          child: Icon(Icons.add, size: 40, color: ThemeConfig.textColor),
           onPressed: () {
             SystemHelpers.vibrate25();
             addNewPlan(context);
