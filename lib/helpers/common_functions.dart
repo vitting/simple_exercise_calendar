@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:simple_exercise_calendar/helpers/edit_dialog.dart';
 import 'package:simple_exercise_calendar/helpers/exercise_plan_data.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercise_delete_dialog.dart';
-import 'package:simple_exercise_calendar/ui/exercises/exercise_edit_dialog.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercise_number_edit_dialog.dart';
 import 'package:simple_exercise_calendar/ui/exercises/exercises_detail.dart';
 
 Future<String> showEditDialog(
     BuildContext context, String title, String lable, String value,
-    [bool autoFocus = false]) async {
+    [bool autoFocus = false, int textLength = 250]) async {
   return showDialog<String>(
       context: context,
-      builder: (BuildContext dialogContext) => ExerciseEditDialog(
+      builder: (BuildContext dialogContext) => EditDialog(
             title: title,
             lable: lable,
             value: value,
+            textLength: textLength,
             autoFocus: autoFocus,
           ));
 }

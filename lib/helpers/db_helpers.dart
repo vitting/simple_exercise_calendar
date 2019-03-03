@@ -6,7 +6,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:synchronized/synchronized.dart';
 
 final String dbName = "simplecalendarforexercise.db";
-final int dbVersion = 1;
+final int dbVersion = 2;
 
 class DbHelpers {
   static final _lock = new Lock();
@@ -16,6 +16,7 @@ class DbHelpers {
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath, dbName);
 
+    /// TODO: Remember to Disable before release
     // Sqflite.setDebugModeOn();
 
     if (_db == null || !_db.isOpen) {
@@ -35,6 +36,7 @@ class DbHelpers {
               print("ONCREATE CREATION TABLES");
               await db.execute("${DbSql.createExercisePlans}");
               await db.execute("${DbSql.createExercises}");
+              await db.execute("${DbSql.createExerciseNotes}");
               await db.execute("${DbSql.createEvents}");
             } catch (error) {
               print("DB ONCREATE ERROR: $error");
@@ -44,6 +46,7 @@ class DbHelpers {
               print("ONUPGRADE CREATION TABLES");
               await db.execute("${DbSql.createExercisePlans}");
               await db.execute("${DbSql.createExercises}");
+              await db.execute("${DbSql.createExerciseNotes}");
               await db.execute("${DbSql.createEvents}");
             } catch (error) {
               print("DB ONUPGRADE ERROR: $error");
@@ -59,6 +62,8 @@ class DbHelpers {
 
               // await db.execute("${DbSql.dropEvents}");
               // await db.execute("${DbSql.createEvents}");
+              // await db.execute("${DbSql.dropExerciseNotes}");
+              // await db.execute("${DbSql.createExerciseNotes}");
             } catch (error) {
               print("DB ONOPEN ERROR: $error");
             }

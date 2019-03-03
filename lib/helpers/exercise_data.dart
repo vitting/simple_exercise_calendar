@@ -1,5 +1,6 @@
 import 'package:simple_exercise_calendar/helpers/db_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/db_sql_create.dart';
+import 'package:simple_exercise_calendar/helpers/exercise_note_data.dart';
 import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 
 class ExerciseData {
@@ -41,9 +42,15 @@ class ExerciseData {
     return DbHelpers.update(DbSql.tableExercises, this.toMap(), "id = ?", [id]);
   }
 
-  Future<int> saveCopy(String exercisePlanId) {
+  Future<int> saveCopy(String exercisePlanId, [bool overwriteOrgIds = false]) {
     id = SystemHelpers.generateUuid();
     this.exercisePlanId = exercisePlanId;
+
+    if (overwriteOrgIds) {
+      this.orgExerciseId = id;
+      this.orgExercisePlanId = exercisePlanId;
+    }
+
     return DbHelpers.insert(DbSql.tableExercises, this.toMap());
   }
 
@@ -81,6 +88,34 @@ class ExerciseData {
     return DbHelpers.updateExerciseRepetitionsDone(id, repetitionsDone);
   }
 
+  Future<int> addExerciseNote(String note) {
+    ExerciseNoteData exerciseNote = ExerciseNoteData(
+        exerciseId: this.id,
+        orgExerciseId: this.orgExerciseId,
+        exercisePlanId: this.exercisePlanId,
+        orgExercisePlanId: this.orgExercisePlanId,
+        note: note);
+
+    return exerciseNote.save();
+  }
+
+  Future<int> updateExerciseNote(String note, ExerciseNoteData exerciseNote) {
+    exerciseNote.note = note;
+    return exerciseNote.save();
+  }
+
+  Future<int> deleteExerciseNote(ExerciseNoteData exerciseNote) {
+    return exerciseNote.delete();
+  }
+
+  Future<List<ExerciseNoteData>> getExerciseNotes() async {
+    List<Map<String, dynamic>> list = await DbHelpers.query(DbSql.tableExerciseNotes, where: "exerciseId = ?", whereArgs: [id], orderBy: "date");
+
+    return list.map<ExerciseNoteData>((Map<String, dynamic> item) {
+      return ExerciseNoteData.fromMap(item);
+    }).toList();
+  }
+
   Map<String, dynamic> toMap() {
     return {
       "id": id,
@@ -114,10 +149,12 @@ class ExerciseData {
         closed: item["closed"] == 1);
   }
 
-  factory ExerciseData.copy(ExerciseData item) {
+  factory ExerciseData.copy(ExerciseData item,
+      [bool overwriteOrgExerciseId = false]) {
+    String newId = SystemHelpers.generateUuid();
     return ExerciseData(
-        id: SystemHelpers.generateUuid(),
-        orgExerciseId: item.orgExerciseId,
+        id: newId,
+        orgExerciseId: overwriteOrgExerciseId ? newId : item.orgExerciseId,
         exercisePlanId: item.exercisePlanId,
         orgExercisePlanId: item.orgExercisePlanId,
         text: item.text,

@@ -2,13 +2,16 @@ class DbSql {
   static const String tableExercisePlans = "exerciseplans";
   static const String tableExercises = "exercises";
   static const String tableEvents = "events";
+  static const String tableExerciseNotes = "exerciseNotes";
   static const String colId = "id";
+  static const String colExerciseId = "exerciseId";
   static const String colExercisePlanId = "exercisePlanId";
   static const String colOrgExercisePlanId = "orgExercisePlanId";
   static const String colOrgExerciseId = "orgExerciseId";
   static const String colTemplateExercisePlanId = "templateExercisePlanId";
   static const String colTitle = "title";
   static const String colText = "text";
+  static const String colNote = "note";
   static const String colDate = "date";
   static const String colType = "type";
   static const String colIndex = "index";
@@ -24,8 +27,11 @@ class DbSql {
       "CREATE TABLE IF NOT EXISTS [$tableExercises] ([$colId] TEXT(50) PRIMARY KEY NOT NULL UNIQUE, [$colExercisePlanId] TEXT(50) NOT NULL, [$colOrgExercisePlanId] TEXT(50) NOT NULL, [$colOrgExerciseId] TEXT(50) NOT NULL, [$colText] TEXT(250) NOT NULL, [$colDescription] TEXT(5000) NOT NULL, [$colWeight] DOUBLE NOT NULL DEFAULT 0, [$colSeconds] INTEGER NOT NULL DEFAULT 0, [$colRepetitions] INTEGER NOT NULL DEFAULT 0, [$colRepetitionsDone] INTEGER NOT NULL DEFAULT 0, [$colIndex] INTEGER NOT NULL DEFAULT 0, [$colClosed] INTEGER NOT NULL DEFAULT 0);";
   static const String createEvents =
       "CREATE TABLE IF NOT EXISTS [$tableEvents] ([$colId] TEXT(50) PRIMARY KEY NOT NULL UNIQUE, [$colExercisePlanId] TEXT(50) NOT NULL, [$colTemplateExercisePlanId] TEXT(50) NOT NULL, [$colDate] INTEGER NOT NULL);";
+  static const String createExerciseNotes =
+      "CREATE TABLE IF NOT EXISTS [$tableExerciseNotes]([$colId] TEXT(50) PRIMARY KEY NOT NULL UNIQUE, [$colExerciseId] TEXT(50) NOT NULL, [$colOrgExerciseId] TEXT(50) NOT NULL, [$colExercisePlanId] TEXT(50) NOT NULL, [$colOrgExercisePlanId] TEXT(50) NOT NULL, [$colNote] TEXT(2500) NOT NULL, [$colDate] INT NOT NULL DEFAULT 0);";
   static const String dropExercisePlans =
       "DROP TABLE IF EXISTS $tableExercisePlans;";
   static const String dropExercises = "DROP TABLE IF EXISTS $tableExercises;";
   static const String dropEvents = "DROP TABLE IF EXISTS $tableEvents;";
+  static const String dropExerciseNotes = "DROP TABLE IF EXISTS $tableExerciseNotes;";
 }

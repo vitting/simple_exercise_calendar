@@ -144,9 +144,9 @@ class ExerciseSub extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            ),
           ],
-        ),
+        )
       ],
     );
   }

@@ -81,7 +81,7 @@ class ExercisePlanData {
     int result = await newExercisePlan.save();
     if (result != null && result != 0) {
       exercises.forEach((ExerciseData item) async {
-        await item.saveCopy(newId);
+        await item.saveCopy(newId, true);
       });
     }
 

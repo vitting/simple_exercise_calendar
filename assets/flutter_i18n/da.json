@@ -58,7 +58,7 @@
         "string2": "Navn på øvelse *",
         "string3": "Beskrivelse",
         "string4": "Gem",
-        "string5": "Vægt",
+        "string5": "Vægt i kg",
         "string6": "Gentagelser",
         "string7": "Sekunder",
         "string8": "Opret øvelse",
@@ -68,7 +68,7 @@
         "string1": "Ja",
         "string2": "Nej"
     },
-    "ExerciseEditDialog": {
+    "EditDialog": {
         "string1": "Udfyld"
     },
     "ExerciseSub": {

@@ -58,7 +58,7 @@
         "string2": "Name of exercise *",
         "string3": "Description",
         "string4": "Save",
-        "string5": "Weight",
+        "string5": "Weight in kg.",
         "string6": "Repetitions",
         "string7": "Seconds",
         "string8": "Create exercise",
@@ -68,7 +68,7 @@
         "string1": "Yes",
         "string2": "No"
     },
-    "ExerciseEditDialog": {
+    "EditDialog": {
         "string1": "Fill out"
     },
     "ExerciseSub": {

@@ -6,28 +6,30 @@ import 'package:simple_exercise_calendar/helpers/round_button_widget.dart';
 import 'package:simple_exercise_calendar/helpers/system_helpers.dart';
 import 'package:simple_exercise_calendar/helpers/theme_config.dart';
 
-class ExerciseEditDialog extends StatefulWidget {
+class EditDialog extends StatefulWidget {
   final String title;
   final String lable;
   final String value;
   final String buttonText;
   final bool autoFocus;
+  final int textLength;
 
-  const ExerciseEditDialog(
+  const EditDialog(
       {Key key,
       this.title,
       this.lable,
       this.value = "",
       this.buttonText = "Gem",
+      this.textLength = 250,
       this.autoFocus = false})
       : super(key: key);
   @override
-  ExerciseEditDialogState createState() {
-    return new ExerciseEditDialogState();
+  EditDialogState createState() {
+    return new EditDialogState();
   }
 }
 
-class ExerciseEditDialogState extends State<ExerciseEditDialog> {
+class EditDialogState extends State<EditDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class ExerciseEditDialogState extends State<ExerciseEditDialog> {
                 autofocus: widget.autoFocus,
                 initialValue: widget.value,
                 maxLines: 2,
-                inputFormatters: [LengthLimitingTextInputFormatter(250)],
+                inputFormatters: [LengthLimitingTextInputFormatter(widget.textLength)],
                 cursorColor: ThemeConfig.dialogTextColor,
                 style: TextStyle(color: ThemeConfig.dialogTextColor),
                 decoration: InputDecoration(
@@ -72,7 +74,7 @@ class ExerciseEditDialogState extends State<ExerciseEditDialog> {
                         color: ThemeConfig.dialogTextColor.withOpacity(0.8))),
                 validator: (String value) {
                   if (value.trim().isEmpty) {
-                    return "${FlutterI18n.translate(context, 'ExerciseEditDialog.string1')} ${widget.lable}";
+                    return "${FlutterI18n.translate(context, 'EditDialog.string1')} ${widget.lable}";
                   }
                 },
                 onSaved: (String value) {
